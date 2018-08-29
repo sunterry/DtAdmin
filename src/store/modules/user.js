@@ -1,14 +1,15 @@
 import {serverLogin} from '@/http'
 import {setStorage, getStorage, removeStorage} from '@/utils/dt-storage'
 import deCodeToken from '@/utils/dt-resolution-token'
-import {SET_TOKEN, SET_USER_INFO, GET_USER_ERR} from './../types'
+import {SET_TOKEN, SET_USER_INFO, GET_USER_ERR, SET_USER_AHTH} from './../types'
 
 export default {
   state: {
     token: getStorage('token'),
     userinfo: {},
     isAuth: false,
-    err: {}
+    err: {},
+    access: ''
   },
   actions: {
     handleLogin ({commit}, {username, password}) {
@@ -26,8 +27,13 @@ export default {
       return new Promise((resolve, reject) => {
         if (state.token) {
           const userinfo = deCodeToken(state.token)
-          commit(SET_USER_INFO, Object.assign({}, userinfo, {access: ['admin', 'super_admin']}))
-          resolve(Object.assign({}, userinfo, {access: ['admin', 'super_admin']}))
+          commit(SET_USER_INFO, Object.assign({}, userinfo))
+          commit(SET_USER_AHTH, ['admin', 'super_admin'])
+          const user = {
+            userinfo,
+            access: ['admin', 'super_admin']
+          }
+          resolve(user)
         } else {
           const ERR = {code: 401, msg: '登录失败'}
           commit(GET_USER_ERR, ERR)
@@ -40,7 +46,9 @@ export default {
       return new Promise((resolve, reject) => {
         commit(SET_TOKEN, '')
         commit(SET_USER_INFO, {})
+        commit(SET_USER_AHTH, [])
         removeStorage('token')
+        resolve()
       })
     }
   },
@@ -54,6 +62,9 @@ export default {
       state.userinfo = userinfo
       state.err = null
     },
+    [SET_USER_AHTH] (state, access) {
+      state.access = [...access]
+    },
     [GET_USER_ERR] (state, err) {
       state.isAuth = false
       state.userinfo = null
@@ -63,6 +74,9 @@ export default {
   getters: {
     userinfo (state) {
       return state.userinfo
+    },
+    access (state) {
+      return state.access
     }
   }
 }

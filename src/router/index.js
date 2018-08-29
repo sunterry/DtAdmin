@@ -20,7 +20,9 @@ router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
   const token = getStorage('token')
   setAuthorizationToken(token)
+  console.log(token)
   if (!token && to.name !== LOGIN_PAGE_NAME) {
+    console.log(1)
     // 未登录且要跳转的页面不是登录页
     next({
       name: LOGIN_PAGE_NAME // 跳转到登录页
@@ -34,9 +36,9 @@ router.beforeEach((to, from, next) => {
       name: 'home' // 跳转到home页
     })
   } else {
-    store.dispatch('getUserInfo').then(user => {
-      console.log(user)
-      if (isPermission(to.name, user.access, routes)) next()
+    store.dispatch('getUserInfo').then((data) => {
+      const {access} = data
+      if (isPermission(to.name, access, routes)) next()
       else next({ replace: true, name: 'error_401' })
     })
   }

@@ -38,7 +38,7 @@ export default {
       return state.homeRoute
     },
     menuList (state, getters, rootState) {
-      return getMenuByRouter(routes, rootState.user.userinfo.access)
+      return getMenuByRouter(routes, rootState.user.access)
     },
     breadCrumbList (state) {
       return state.breadCrumbList
