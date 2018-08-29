@@ -1,6 +1,6 @@
 <template>
   <div class="dt-logo">
-    <slot></slot>
+    <slot>DtAdmin</slot>
   </div>
 </template>
 

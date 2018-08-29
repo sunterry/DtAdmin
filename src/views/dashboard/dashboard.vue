@@ -27,6 +27,7 @@
       <Layout>
         <Header class="dt-container__header">
           <dt-breadcrumb class="dt-breadcrumb" showIcon :breadCrumbList="breadCrumbList" />
+          <dt-screen v-model="isScreen"  style="margin-right: 10px"/>
           <dt-user class="dt-user" :userinfo="userinfo"/>
         </Header>
         <dt-title v-show="showTitle" placement="bottom-right" :title="title" />
@@ -62,6 +63,7 @@ import DtMenu from '@components/dt-menu/dt-menu'
 import DtTitle from '@components/dt-title/dt-title'
 import DtUser from '@components/dt-user/dt-user'
 import DtLogo from '@components/dt-logo/dt-logo'
+import DtScreen from '@components/dt-fullscreen/dt-fullscreen'
 import {DTADMIN} from '@/utils/dt-common-types'
 import {getNewTagList, routeEqual, getNextRoute} from '@/utils/dt-util-router'
 import filter from 'lodash/filter'
@@ -77,7 +79,8 @@ export default {
       collapsedWidth: 78,
       width: 200,
       showTitle: false,
-      title: '首页'
+      title: '首页',
+      isScreen: false
     }
   },
   computed: {
@@ -160,7 +163,8 @@ export default {
     DtMenu,
     DtTitle,
     DtUser,
-    DtLogo
+    DtLogo,
+    DtScreen
   }
 }
 </script>

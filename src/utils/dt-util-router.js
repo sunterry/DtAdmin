@@ -10,7 +10,6 @@ import map from 'lodash/map'
  * @description 路由权鉴, 用户是否可跳转到该页
  */
 export const isPermission = (name, access, routes) => {
-  console.log(access)
   const routePermissionJudge = (list) => {
     return some(list, item => {
       if (item.children && item.children.length) {
@@ -49,7 +48,6 @@ export const hasOneOf = (target, arr) => {
  * @param access
  */
 export const getMenuByRouter = (routes, access) => {
-  console.log(access)
   const res = []
   forEach(routes, item => {
     // 说明用户不需要权限就能访问 或者说用户不需要访问这个隐藏的路由
@@ -207,7 +205,6 @@ export const objEqual = (obj1, obj2) => {
  * @param {String} name 当前关闭的标签的name
  */
 export const getNextRoute = (list, route) => {
-  console.log(list)
   let res = {}
   if (list.length === 2) {
     res = getHomeRoute(list)
