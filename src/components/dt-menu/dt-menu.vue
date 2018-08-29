@@ -137,6 +137,16 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  .no-select{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .dt-menu {
+    .no-select
+  }
 </style>

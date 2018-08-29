@@ -18,7 +18,11 @@
           accordion
           :menu-list="menuList"
           @on-select-change="onSelected"
-        ></dt-menu>
+        >
+          <dt-logo>
+            <img :src="require('./../../assets/img/logo.png')" width="161" height="44" alt="">
+          </dt-logo>
+        </dt-menu>
       </Sider>
       <Layout>
         <Header class="dt-container__header">
@@ -57,6 +61,7 @@ import DtScrolltab from '@/components/dt-scrolltab/dt-scrolltab'
 import DtMenu from '@components/dt-menu/dt-menu'
 import DtTitle from '@components/dt-title/dt-title'
 import DtUser from '@components/dt-user/dt-user'
+import DtLogo from '@components/dt-logo/dt-logo'
 import {DTADMIN} from '@/utils/dt-common-types'
 import {getNewTagList, routeEqual, getNextRoute} from '@/utils/dt-util-router'
 import filter from 'lodash/filter'
@@ -154,7 +159,8 @@ export default {
     DtScrolltab,
     DtMenu,
     DtTitle,
-    DtUser
+    DtUser,
+    DtLogo
   }
 }
 </script>

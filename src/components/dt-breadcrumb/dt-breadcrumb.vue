@@ -1,5 +1,5 @@
 <template>
-  <Breadcrumb>
+  <Breadcrumb class="dt-breadcrumb">
     <BreadcrumbItem v-for="item in breadCrumbList" :key="`bread-${item.name}`">
       <dt-icon v-show="showIcon" :type="getIcon(item)" />
       <span>{{getTitle(item)}}</span>
@@ -35,6 +35,16 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  .no-select{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .dt-breadcrumb {
+    .no-select
+  }
 </style>
