@@ -78,7 +78,6 @@ export default {
   // },
   methods: {
     handlescroll (e) {
-      console.log(e)
       let type = e.type
       let delta = 0
       if (type === 'DOMMouseScroll' || type === 'mousewheel') {
@@ -138,15 +137,12 @@ export default {
       } else if (tag.offsetLeft < -this.tagBodyLeft) {
         // 标签在可视区域左侧
         this.tagBodyLeft = -tag.offsetLeft + this.outerPadding
-        console.log(this.tagBodyLeft)
       } else if (tag.offsetLeft > -this.tagBodyLeft && tag.offsetLeft + tag.offsetWidth < -this.tagBodyLeft + outerWidth) {
         // 标签在可视区域
         this.tagBodyLeft = Math.min(0, outerWidth - tag.offsetWidth - tag.offsetLeft - this.outerPadding)
-        console.log(this.tagBodyLeft)
       } else {
         // 标签在可视区域右侧
         this.tagBodyLeft = -(tag.offsetLeft - (outerWidth - this.outerPadding - tag.offsetWidth))
-        console.log(this.tagBodyLeft)
       }
     },
     getTagElementByName (name) {
