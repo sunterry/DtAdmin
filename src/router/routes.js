@@ -47,7 +47,7 @@ export default [
     name: 'project',
     meta: {
       title: '源码地址',
-      href: 'https://gitee.com/terry0515/vue-admin',
+      href: 'https://github.com/sunterry/DtAdmin.git',
       icon: '_github-fill'
     }
   },
