@@ -26,20 +26,29 @@
       </Sider>
       <Layout>
         <Header class="dt-container__header">
-          <dt-breadcrumb class="dt-breadcrumb" showIcon :breadCrumbList="breadCrumbList" />
-          <dt-screen v-model="isScreen"  style="margin-right: 10px"/>
-          <dt-user class="dt-user" :userinfo="userinfo"/>
+          <Row type="flex" justify="space-between">
+            <Col span="20">
+              <dt-breadcrumb  showIcon :breadCrumbList="breadCrumbList" />
+            </Col>
+            <Col span="1">
+              <dt-screen v-model="isScreen"/>
+            </Col>
+            <Col span="3">
+              <dt-user :userinfo="userinfo"/>
+            </Col>
+          </Row>
         </Header>
         <dt-title v-show="showTitle" placement="bottom-right" :title="title" />
         <Content  >
-          <div class="dt-container__bar">
-            <dt-scrolltab
-              :routeValue="$route"
-              :tagList="tagNavList"
-              @input="tagNative"
-              @on-close="closeNative"
-              class="dt-container__bar__tag" />
-          </div>
+          <Row>
+            <Col>
+              <dt-scrolltab
+                :routeValue="$route"
+                :tagList="tagNavList"
+                @input="tagNative"
+                @on-close="closeNative" />
+            </Col>
+          </Row>
           <div class="dt-container__view">
             <Row>
               <Col span="24">
@@ -173,33 +182,13 @@ export default {
   .dt-container {
     min-height: 100vh;
     &__header {
-      padding: 0 30px;
+      padding: 0 0 0 20px;
       border-bottom: 1px solid #e6e6e6;
       background: #fff;
-      display: flex;
-      .dt-breadcrumb {
-        flex: 1;
-      }
-      .dt-user {
-        width: 100px;
-      }
     }
     &__view {
       padding: 15px;
       background: #fff;
-    }
-    &__bar {
-      display: flex;
-      &__title {
-        width: 140px;
-        margin: 2px 0;
-        line-height: 32px;
-      }
-      &__tag {
-        width: 100%;
-        height: 36px;
-        overflow: hidden;
-      }
     }
   }
 </style>

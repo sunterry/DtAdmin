@@ -43,7 +43,6 @@ export default {
   data () {
     return {
       tagBodyLeft: 0,
-      rightOffset: 40,
       outerPadding: 4
     }
   },
