@@ -1,10 +1,10 @@
 <template>
   <div class="dt-scroll-tab">
-    <div class="dt-scroll-tab__common dt-scroll-tab__prev"  @click="handleScroll(220)">
+    <div class="dt-scroll-tab__common"  @click="handleScroll(240)">
        <Icon :size="18" class="prev" type="ios-arrow-back" />
     </div>
-    <div class="dt-scroll-tab__scroll scroll-outer" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll">
-      <div ref="scrollBody" class="scroll-body" :style="{left: tagBodyLeft + 'px'}">
+    <div class="dt-scroll-tab__scroll" ref="scrollOuter" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll">
+      <div ref="scrollBody" class="dt-scroll-tab__scroll--body" :style="{left: tagBodyLeft + 'px'}">
         <Tag
           ref="tagsPageOpened"
           v-for="(item, index) in tagList"
@@ -20,10 +20,10 @@
         </Tag>
       </div>
     </div>
-    <div class="dt-scroll-tab__common dt-scroll-tab__next"  @click="handleScroll(-220)">
+    <div class="dt-scroll-tab__common"  @click="handleScroll(-240)">
       <Icon :size="18" class="next" type="ios-arrow-forward" />
     </div>
-    <div class="dt-scroll-tab__common dt-scroll-tab__close">
+    <div class="dt-scroll-tab__common">
       <Dropdown transfer @on-click="handleTagsOption">
         <Icon :size="18" class="close" type="ios-close-circle-outline" />
         <DropdownMenu slot="list">
@@ -70,11 +70,11 @@ export default {
       }, 200)
     }
   },
-  // mounted () {
-  //   setTimeout(() => {
-  //     this.getTagElementByName(this.$route.name)
-  //   }, 200)
-  // },
+  mounted () {
+    setTimeout(() => {
+      this.getTagElementByName(this.$route.name)
+    }, 200)
+  },
   methods: {
     handlescroll (e) {
       let type = e.type
@@ -173,30 +173,21 @@ export default {
   }
   .dt-scroll-tab{
     display: flex;
+    height: 36px;
     .no-select;
     .size;
     &__common{
-      width: 32px;
+      width: 36px;
       background: #fff;
       height: 100%;
       text-align: center;
       line-height: 36px;
     }
-    &__close{
-      right: 0;
-    }
-    &__next{
-      right: 34px;
-    }
-    &__prev{
-      left: 0;
-    }
-    .scroll-outer{
+    &__scroll{
       position: relative;
       flex: 1;
-      width: calc(100% - 96px);
       overflow: hidden;
-      .scroll-body{
+      &--body{
         height: 100%;
         display: inline-block;
         position: absolute;
