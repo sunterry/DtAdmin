@@ -1,6 +1,6 @@
 <template>
   <Breadcrumb class="dt-breadcrumb">
-    <BreadcrumbItem v-for="item in breadCrumbList" :key="`bread-${item.name}`">
+    <BreadcrumbItem v-for="item in breadCrumbList" :to="item.to ? item.to : null" :key="`bread-${item.name}`">
       <dt-icon v-show="showIcon" :type="getIcon(item)" />
       <span>{{getTitle(item)}}</span>
     </BreadcrumbItem>
