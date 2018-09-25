@@ -19,13 +19,14 @@
             <dt-bread-crumb :dataSource="dataSource" />
           </i-col>
           <i-col>
-            <DtUser src="https://i.loli.net/2017/08/21/599a521472424.jpg"
-                    size="large"
-                    icon="ios-person"
-                    :dropSource="dropSource"
-                    placement="bottom"
-                    user-name="Admin"
-                    @on-change="handleChange"
+            <DtUser
+              src="https://i.loli.net/2017/08/21/599a521472424.jpg"
+              size="large"
+              icon="ios-person"
+              :dropSource="dropSource"
+              placement="bottom"
+              user-name="Admin"
+              @on-change="handleChange"
             />
           </i-col>
         </Row>

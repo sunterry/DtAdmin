@@ -17,7 +17,12 @@
         :customIcon="customIcon"
       />
       <span class="dt-avatar__user">{{userName}}</span>
-      <Icon :type="iconType" :color="iconColor" :size="iconSize" :class="triggerClass" />
+      <Icon
+        :type="iconType"
+        :color="iconColor"
+        :size="iconSize"
+        :class="triggerClass"
+      />
     </div>
       <DropdownMenu slot="list">
         <DropdownItem
@@ -28,7 +33,10 @@
           :divided="item.divided"
           :selected="item.selected"
         >
-          <dt-icon :icon="getIcon(item)" :size="14" />
+          <dt-icon
+            :icon="getIcon(item)"
+            :size="14"
+          />
           <span class="dt-drop-select">{{ getTitle(item) }}</span>
         </DropdownItem>
       </DropdownMenu>
