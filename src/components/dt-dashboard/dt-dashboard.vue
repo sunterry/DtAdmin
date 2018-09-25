@@ -45,7 +45,7 @@ const collapsible = true;
 const collapsedWidth = 64;
 const hideTrigger = true;
 const defaultCollapsed = false;
-const width = 200;
+const width = 230;
 const breakpoint = 'sm'; // xs,sm,md,lg,xl 或 xxl
 const reverseArrow = false;
 

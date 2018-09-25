@@ -172,7 +172,7 @@ export default {
     }
     span {
       font-size: 14px;
-      padding: 0 5px;
+      margin: 0 5px;
     }
   }
 </style>
