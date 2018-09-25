@@ -6,7 +6,7 @@
     :transfer="transfer"
     @on-click="handleClick"
   >
-    <div class="dt-avatoar">
+    <div class="dt-avatar">
       <Avatar
         :shape="shape"
         :size="size"
@@ -125,7 +125,7 @@ export default {
 <style lang="less" scoped>
   @import './../../assets/css/mixin';
   @import "./../../assets/css/variable";
-  .dt-avatoar {
+  .dt-avatar {
     .no-select;
     cursor: pointer;
   }

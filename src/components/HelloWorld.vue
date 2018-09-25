@@ -11,12 +11,15 @@
     >
       <span class="user">Admin</span>
     </DtUser>
+
+    <dt-icon icon="IE-square-fill" :size="20" color="red" />
   </div>
 </template>
 
 <script>
 import DtBreadCrumb from '@/components/dt-breadCrumb';
 import DtUser from '@/components/dt-user';
+import DtIcon from '@/components/dt-icon';
 
 export default {
   name: 'HelloWorld',
@@ -50,6 +53,7 @@ export default {
   components: {
     DtBreadCrumb,
     DtUser,
+    DtIcon,
   },
 };
 </script>
