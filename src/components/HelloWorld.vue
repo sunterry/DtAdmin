@@ -12,7 +12,7 @@
       <span class="user">Admin</span>
     </DtUser>
 
-    <dt-icon icon="IE-square-fill" :size="20" color="red" />
+    <dt-icon icon="shopping-fill" :size="20" color="red" />
   </div>
 </template>
 

@@ -5,8 +5,10 @@
     :placement="placement"
     :transfer="transfer"
     @on-click="handleClick"
+    @on-visible-change="handleVisible"
+    class="dt-avatar"
   >
-    <div class="dt-avatar">
+    <div>
       <Avatar
         :shape="shape"
         :size="size"
@@ -14,27 +16,42 @@
         :icon="icon"
         :customIcon="customIcon"
       />
-      <slot></slot>
-      <Icon :type="iconType" :color="iconColor" :size="iconSize" />
+      <span class="dt-avatar__user">{{userName}}</span>
+      <Icon :type="iconType" :color="iconColor" :size="iconSize" :class="triggerClass" />
     </div>
       <DropdownMenu slot="list">
         <DropdownItem
           v-for="(item, index) in dropSource"
           :key="`drop-down-menu-${index}`"
-          :name="item.name"
+          :name="item.type"
           :disabled="item.disabled"
           :divided="item.divided"
           :selected="item.selected"
-        >{{item.title}}</DropdownItem>
+        >
+          <dt-icon :icon="getIcon(item)" :size="14" />
+          <span class="dt-drop-select">{{ getTitle(item) }}</span>
+        </DropdownItem>
       </DropdownMenu>
   </Dropdown>
 </template>
 
 <script>
 import { oneOf } from '_lib/tools';
+import mixin from '_lib/mixin';
 
 export default {
   name: 'dt-user',
+  mixins: [mixin],
+  data() {
+    return {
+      visibleTrigger: false,
+    };
+  },
+  computed: {
+    triggerClass() {
+      return this.visibleTrigger ? 'trigger' : '';
+    },
+  },
   props: {
     shape: {
       validator(value) {
@@ -113,10 +130,17 @@ export default {
         return 'bottom';
       },
     },
+    userName: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     handleClick(type) {
       this.$emit('on-change', type);
+    },
+    handleVisible(visibleTrigger) {
+      this.visibleTrigger = visibleTrigger;
     },
   },
 };
@@ -128,11 +152,19 @@ export default {
   .dt-avatar {
     .no-select;
     cursor: pointer;
-  }
-  .user{
-    font-size: @secondary-size;
-    font-weight: @weight;
-    margin-left: 5px;
-    vertical-align: middle;
+    transition: transfrom .5s ease;
+    .trigger{
+      transform: rotateZ(-180deg);
+      transition: transfrom .3s ease;
+    }
+    .dt-avatar__user {
+      font-size: @secondary-size;
+      font-weight: @weight;
+      vertical-align: middle;
+    }
+    span {
+      font-size: 14px;
+      padding: 0 5px;
+    }
   }
 </style>

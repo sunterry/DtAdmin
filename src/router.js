@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import DashBoard from '_c/dt-dashboard';
 
 Vue.use(Router);
 
@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: DashBoard,
     },
     {
       path: '/about',

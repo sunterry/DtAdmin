@@ -6,7 +6,9 @@
         :key="`bread-crumb-${item.name}`"
         :to="item.to"
       >
-        {{ getTitle(item) }}
+
+        <dt-icon :icon="getIcon(item)" :size="iconSize" />
+        <span class="bread-crumb-title">{{ getTitle(item) }}</span>
       </BreadcrumbItem>
     </Breadcrumb>
   </div>
@@ -27,6 +29,17 @@ export default {
       type: String,
       default: '/',
     },
+    iconSize: {
+      type: Number,
+      default: 14,
+    },
   },
 };
 </script>
+
+<style scoped>
+  .bread-crumb-title {
+    padding: 0 2px;
+    font-size: 14px;
+  }
+</style>
