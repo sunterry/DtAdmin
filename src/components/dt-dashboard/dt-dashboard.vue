@@ -9,7 +9,9 @@
       :width="width"
       :breakpoint="breakpoint"
       :reverse-arrow="reverseArrow"
-    >Sider</Sider>
+    >
+      <DtMenu />
+    </Sider>
     <Layout>
       <Header class="dt-header">
         <Row type="flex" justify="space-between">
@@ -35,7 +37,8 @@
 
 <script>
 import DtBreadCrumb from '_c/dt-breadCrumb';
-import DtUser from '@/components/dt-user';
+import DtUser from '_c/dt-user';
+import DtMenu from '_c/dt-menu';
 
 const collapsible = true;
 const collapsedWidth = 64;
@@ -90,6 +93,7 @@ export default {
   components: {
     DtBreadCrumb,
     DtUser,
+    DtMenu,
   },
 };
 </script>

@@ -132,7 +132,7 @@ export default {
     },
     userName: {
       type: String,
-      default: '',
+      default: 'Admin',
     },
   },
   methods: {

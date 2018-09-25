@@ -5,6 +5,7 @@
         v-for="item in dataSource"
         :key="`bread-crumb-${item.name}`"
         :to="item.to"
+        :replace="item.replace"
       >
 
         <dt-icon :icon="getIcon(item)" :size="iconSize" />

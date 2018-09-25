@@ -20,10 +20,6 @@ export default {
       type: Number,
       default: 20,
     },
-    color: {
-      type: String,
-      default: '',
-    },
   },
   computed: {
     iconName() {
