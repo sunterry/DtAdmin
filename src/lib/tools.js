@@ -13,6 +13,5 @@ export function oneOf(value, validList) {
   }
   return false;
 }
-
 export const c = 10;
 console.log(c);
