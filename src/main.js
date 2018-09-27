@@ -7,6 +7,9 @@ import router from '@/router';
 import App from './App.vue';
 import store from './store';
 
+if (process.env.NODE_ENV === 'development') {
+  require('./mock/index.js'); /* eslint-disable-line */
+}
 Vue.use(iView, { locale });
 Vue.config.productionTip = false;
 
