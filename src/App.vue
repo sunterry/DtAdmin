@@ -10,6 +10,5 @@ html, body, #app, .ivu-layout {
   width: 100%;
   height: 100%;
   font-size: @desc-size;
-  background: #fff;
 }
 </style>

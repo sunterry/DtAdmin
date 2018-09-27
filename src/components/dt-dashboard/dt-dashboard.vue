@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <Sider
-      v-model="isSider"
+      v-model="isCollapsible"
       :collapsible="collapsible"
       :collapsed-width="collapsedWidth"
       :hide-trigger="hideTrigger"
@@ -16,7 +16,19 @@
       <Header class="dt-header">
         <Row type="flex" justify="space-between">
           <i-col>
-            <dt-bread-crumb :dataSource="dataSource" />
+            <Row type="flex">
+              <i-col>
+                <Icon
+                  :class="collaps"
+                  @click.native="handleCollapsible"
+                  type="md-menu"
+                  :size="28"
+                />
+              </i-col>
+              <i-col >
+                <dt-bread-crumb :dataSource="dataSource"  />
+              </i-col>
+            </Row>
           </i-col>
           <i-col>
             <DtUser
@@ -31,7 +43,9 @@
           </i-col>
         </Row>
       </Header>
-      <Content>Content</Content>
+      <Content>
+        <router-view></router-view>
+      </Content>
     </Layout>
   </Layout>
 </template>
@@ -53,7 +67,7 @@ export default {
   name: 'dt-dashboard',
   data() {
     return {
-      isSider: false,
+      isCollapsible: false,
       collapsible,
       collapsedWidth,
       hideTrigger,
@@ -86,9 +100,20 @@ export default {
       ],
     };
   },
+  computed: {
+    collaps() {
+      return [
+        'icon',
+        this.isCollapsible ? 'trigger-rotate' : '',
+      ];
+    },
+  },
   methods: {
     handleChange(name) {
       console.log(name);
+    },
+    handleCollapsible() {
+      this.isCollapsible = !this.isCollapsible;
     },
   },
   components: {
@@ -104,5 +129,15 @@ export default {
     background: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,.1);
     padding: 0 32px;
+    .icon {
+      cursor: pointer;
+      margin-right: 20px;
+      line-height: 64px;
+      transition: transform .3s ease;
+      &.trigger-rotate {
+        transform: rotateZ(-90deg);
+        transition: transform .3s ease;
+      }
+    }
   }
 </style>

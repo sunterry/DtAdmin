@@ -7,9 +7,9 @@
         :to="item.to"
         :replace="item.replace"
       >
-
-        <dt-icon :icon="getIcon(item)" :size="iconSize" />
-        <span class="bread-crumb-title">{{ getTitle(item) }}</span>
+        <span class="dt-bread-crumb">
+          <dt-icon :icon="getIcon(item)" :size="iconSize" />{{ getTitle(item) }}
+        </span>
       </BreadcrumbItem>
     </Breadcrumb>
   </div>
@@ -38,9 +38,11 @@ export default {
 };
 </script>
 
-<style scoped>
-  .bread-crumb-title {
-    padding: 0 2px;
-    font-size: 14px;
+<style scoped lang="less">
+  .dt-bread-crumb {
+    line-height: 64px;
+    i {
+      margin-right: 5px;
+    }
   }
 </style>
