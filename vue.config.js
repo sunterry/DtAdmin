@@ -29,7 +29,7 @@ module.exports = {
         target: 'http://192.168.1.133:927',
         changeOrigin: true,
         pathRewrite: {
-          '^/admin': '',
+          '^/admin': '/admin',
         },
       },
     },

@@ -44,6 +44,15 @@
         </Row>
       </Header>
       <Content>
+        {{value2}}
+        <DatePicker
+          v-model="value2"
+          format="SS"
+          type="daterange"
+          placement="bottom-end"
+          placeholder="Select date"
+          style="width: 200px"
+        ></DatePicker>
         <router-view></router-view>
       </Content>
     </Layout>
@@ -54,6 +63,8 @@
 import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
+import { login } from '@/api/user';
+
 
 const collapsible = true;
 const collapsedWidth = 64;
@@ -75,6 +86,7 @@ export default {
       width,
       breakpoint,
       reverseArrow,
+      value2: '',
       dataSource: [
         {
           name: 'home',
@@ -115,6 +127,11 @@ export default {
     handleCollapsible() {
       this.isCollapsible = !this.isCollapsible;
     },
+  },
+  created() {
+    login({ user_name: 'admin', password: '123456a' }).then((res) => {
+      console.log(res);
+    });
   },
   components: {
     DtBreadCrumb,
