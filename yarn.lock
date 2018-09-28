@@ -1276,7 +1276,7 @@ babel-plugin-transform-vue-jsx@^4.0.1:
   dependencies:
     esutils "^2.0.2"
 
-babel-runtime@6.x:
+babel-runtime@6.x, babel-runtime@^6.0.0:
   version "6.26.0"
   resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   dependencies:
@@ -1324,6 +1324,12 @@ bcrypt-pbkdf@^1.0.0:
   resolved "http://registry.npm.taobao.org/bcrypt-pbkdf/download/bcrypt-pbkdf-1.0.2.tgz#a4301d389b6a43f9b67ff3ca11a3f6637e360e9e"
   dependencies:
     tweetnacl "^0.14.3"
+
+best-storage@^1.0.2:
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/best-storage/download/best-storage-1.0.2.tgz#08477768b7a0571d2dc38951a3c1048096b86811"
+  dependencies:
+    babel-runtime "^6.0.0"
 
 bfj-node4@^5.2.0:
   version "5.3.1"
@@ -4067,6 +4073,10 @@ joi@^13.0.0:
 js-calendar@^1.2.3:
   version "1.2.3"
   resolved "http://registry.npm.taobao.org/js-calendar/download/js-calendar-1.2.3.tgz#a583b0644b4e695ba394f344d103dbcc7a7a7d3e"
+
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "http://registry.npm.taobao.org/js-cookie/download/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 js-message@1.0.5:
   version "1.0.5"

@@ -48,7 +48,7 @@ import { oneOf } from '_lib/tools';
 import mixin from '_lib/mixin';
 
 export default {
-  name: 'dt-user',
+  name: 'dtUser',
   mixins: [mixin],
   data() {
     return {

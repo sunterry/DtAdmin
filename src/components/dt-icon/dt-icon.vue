@@ -6,7 +6,7 @@
 import '@/assets/fonts/iconfont.css';
 
 export default {
-  name: 'dt-icon',
+  name: 'dtIcon',
   props: {
     icon: {
       type: String,

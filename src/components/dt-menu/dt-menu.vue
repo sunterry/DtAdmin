@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'dt-menu',
+  name: 'dtMenu',
   props: {
     width: {
       type: String,

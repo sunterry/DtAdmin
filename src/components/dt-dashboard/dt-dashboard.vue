@@ -75,7 +75,7 @@ const breakpoint = 'sm'; // xs,sm,md,lg,xl 或 xxl
 const reverseArrow = false;
 
 export default {
-  name: 'dt-dashboard',
+  name: 'dtDashboard',
   data() {
     return {
       isCollapsible: false,

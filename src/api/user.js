@@ -7,4 +7,9 @@ export const login = params => axios
     data: params,
   });
 
-export const getUserInfo = () => {};
+export const getUserInfo = params => axios
+  .request({
+    url: '/admin/getUserInfo',
+    method: 'post',
+    data: params,
+  });

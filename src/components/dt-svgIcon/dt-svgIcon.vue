@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'dt-svgIcon',
+  name: 'dtSvgIcon',
   props: {
     icon: {
       type: String,

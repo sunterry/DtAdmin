@@ -19,7 +19,7 @@
 import mixin from '_lib/mixin';
 
 export default {
-  name: 'dt-breadcrumb',
+  name: 'dtBreadcrumb',
   mixins: [mixin],
   props: {
     dataSource: {
