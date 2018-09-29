@@ -17,20 +17,15 @@
 
 <script>
 import loginFrom from '_c/dt-login-form';
-import { createNamespacedHelpers } from 'vuex';
-
-const { mapGetters, mapActions } = createNamespacedHelpers('user');
+import { mapActions } from 'vuex';
 
 export default {
   name: 'login',
   components: {
     loginFrom,
   },
-  computed: {
-    ...mapGetters(['token']),
-  },
   methods: {
-    ...mapActions(['sendLogin', 'getUserInfo']),
+    ...mapActions('user', ['sendLogin', 'getUserInfo']),
     login(val) {
       const { userName, password } = val;
       const data = Object.assign({}, { user_name: userName, password });
@@ -40,7 +35,6 @@ export default {
             name: 'home',
           });
         });
-        this.$router.push({ name: 'home' });
       }).catch((err) => {
         this.$Message.error(err.message);
       });

@@ -44,15 +44,9 @@
         </Row>
       </Header>
       <Content>
-        {{value2}}
-        <DatePicker
-          v-model="value2"
-          format="SS"
-          type="daterange"
-          placement="bottom-end"
-          placeholder="Select date"
-          style="width: 200px"
-        ></DatePicker>
+        {{userInfo}}
+        {{userAuth}}
+        {{token}}
         <router-view></router-view>
       </Content>
     </Layout>
@@ -60,11 +54,10 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
-import { login } from '@/api/user';
-
 
 const collapsible = true;
 const collapsedWidth = 64;
@@ -74,6 +67,7 @@ const width = 230;
 const breakpoint = 'sm'; // xs,sm,md,lg,xl 或 xxl
 const reverseArrow = false;
 
+const { mapGetters } = createNamespacedHelpers('user');
 export default {
   name: 'dtDashboard',
   data() {
@@ -113,6 +107,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['userAuth', 'userInfo', 'token']),
     collaps() {
       return [
         'icon',
@@ -129,9 +124,6 @@ export default {
     },
   },
   created() {
-    login({ user_name: 'admin', password: '123456a' }).then((res) => {
-      console.log(res);
-    });
   },
   components: {
     DtBreadCrumb,

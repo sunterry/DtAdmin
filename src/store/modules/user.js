@@ -1,4 +1,6 @@
+import Storage from 'best-storage';
 import { login, getUserInfo } from '@/api/user';
+import { setToken } from '_lib/storage';
 import { SETTOKEN, SETUSERINFO, SETUSERAUTH } from './../types';
 
 export default {
@@ -7,17 +9,6 @@ export default {
     token: '',
     userInfo: {},
     userAuth: {},
-  },
-  mutations: {
-    [SETTOKEN](state, token) {
-      state.token = token;
-    },
-    [SETUSERINFO](state, userInfo) {
-      state.userInfo = Object.assign({}, userInfo);
-    },
-    [SETUSERAUTH](state, userAuth) {
-      state.userAuth = [...userAuth];
-    },
   },
   actions: {
     sendLogin({ commit }, data) {
@@ -39,6 +30,7 @@ export default {
           if (res.data) {
             commit(SETUSERINFO, res.data.user);
             commit(SETUSERAUTH, res.data.auth);
+            commit(SETTOKEN, res.data.user && res.data.user.token);
             resolve();
           } else {
             reject(new Error(res.message));
@@ -47,6 +39,30 @@ export default {
       });
     },
   },
-  getters: {},
+  mutations: {
+    [SETTOKEN](state, token) {
+      state.token = token;
+      setToken(token);
+    },
+    [SETUSERINFO](state, userInfo) {
+      state.userInfo = Object.assign({}, userInfo);
+      Storage.set('userInfo', JSON.stringify(userInfo));
+    },
+    [SETUSERAUTH](state, userAuth) {
+      state.userAuth = [...userAuth];
+      Storage.set('userAuth', JSON.stringify([...userAuth]));
+    },
+  },
+  getters: {
+    token(state) {
+      return state.token;
+    },
+    userInfo(state) {
+      return state.userInfo;
+    },
+    userAuth(state) {
+      return state.userAuth;
+    },
+  },
 };
 

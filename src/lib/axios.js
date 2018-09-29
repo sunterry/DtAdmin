@@ -46,7 +46,6 @@ class HttpRequest {
       return Object.assign({}, { code, message });
     }, (error) => {
       this.distroy(url);
-      /* eslint-disable-next-line */
       return Promise.reject(error);
     });
   }
