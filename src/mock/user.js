@@ -23,7 +23,6 @@ export const login = (options) => {
 export const getUserInfo = (options) => {
   const { body } = options;
   const res = JSON.parse(body);
-  console.log(res);
   let response = null;
   if (res.token !== null) {
     response = {
@@ -34,12 +33,7 @@ export const getUserInfo = (options) => {
           avatar: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',
           token: res.token,
         },
-        auth: {
-          page: {
-            about: true,
-          },
-          component: {},
-        },
+        auth: ['about'],
       },
       message: '获取用户信息成功',
     };

@@ -29,11 +29,13 @@ export default {
     login(val) {
       const { userName, password } = val;
       const data = Object.assign({}, { user_name: userName, password });
-      this.sendLogin(data).then((token) => {
-        this.gaveUserInfo({ token }).then(() => {
+      this.sendLogin(data).then(() => {
+        this.gaveUserInfo().then(() => {
           this.$router.push({
             name: 'home',
           });
+        }).catch((err) => {
+          this.$Message.error(err.message);
         });
       }).catch((err) => {
         this.$Message.error(err.message);

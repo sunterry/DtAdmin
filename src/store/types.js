@@ -1,7 +1,8 @@
 /* user types */
-export const SETTOKEN = 'user/setToken';
-export const SETUSERINFO = 'user/setUserInfo';
-export const SETUSERAUTH = 'user/setUserAuth';
+export const SETTOKEN = 'setToken';
+export const SETUSERINFO = 'setUserInfo';
+export const SETUSERAUTH = 'setUserAuth';
+export const HASGETUSERINFO = 'hasGetUserInfo';
 
 /* router types */
-export const SETDYNAMIC = 'router/setDynamic';
+export const SETDYNAMIC = 'setDynamic';

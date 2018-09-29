@@ -3,9 +3,9 @@ import Cookies from 'js-cookie';
 export const TOKEN_KEY = 'token';
 
 export const setToken = (value) => {
-  const inFifteenMinutes = new Date(new Date().getTime() + (15 * 60 * 1000));
+  // const inFifteenMinutes = new Date(new Date().getTime() + (15 * 60 * 1000));
   Cookies.set(TOKEN_KEY, value, {
-    expires: inFifteenMinutes,
+    expires: 3,
   });
 };
 

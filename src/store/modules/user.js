@@ -1,14 +1,15 @@
 import Storage from 'best-storage';
 import { login, getUserInfo } from '@/api/user';
-import { setToken } from '_lib/storage';
-import { SETTOKEN, SETUSERINFO, SETUSERAUTH } from './../types';
+import { setToken, getToken } from '_lib/storage';
+import { SETTOKEN, SETUSERINFO, SETUSERAUTH, HASGETUSERINFO } from './../types';
 
 export default {
   namespaced: true,
   state: {
-    token: '',
+    token: getToken(),
     userInfo: {},
     userAuth: {},
+    hasGetUserInfo: false,
   },
   actions: {
     sendLogin({ commit }, data) {
@@ -17,26 +18,29 @@ export default {
           if (res.data) {
             const { token } = res.data;
             commit(SETTOKEN, token);
-            resolve(token);
+            resolve();
           } else {
             reject(new Error(res.message));
           }
+        }).catch((err) => {
+          reject(new Error(err));
         });
       });
     },
-    gaveUserInfo({ commit }, data) {
+    gaveUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getUserInfo(data).then((res) => {
-          console.log(res);
+        getUserInfo({ token: state.token }).then((res) => {
           if (res.data) {
             const resp = res.data;
             commit(SETUSERINFO, resp.user);
             commit(SETUSERAUTH, resp.auth);
-            commit(SETTOKEN, resp.user.token);
-            resolve(res.data.auth);
+            commit(HASGETUSERINFO, true);
+            resolve(resp);
           } else {
             reject(new Error(res.message));
           }
+        }).catch((err) => {
+          reject(new Error(err));
         });
       });
     },
@@ -51,14 +55,14 @@ export default {
       Storage.set('userInfo', JSON.stringify(userInfo));
     },
     [SETUSERAUTH](state, userAuth) {
-      state.userAuth = Object.assign({}, userAuth);
-      Storage.set('userAuth', JSON.stringify(userAuth));
+      state.userAuth = [...userAuth];
+      Storage.set('userAuth', JSON.stringify([...userAuth]));
+    },
+    [HASGETUSERINFO](state, status) {
+      state.hasGetUserInfo = status;
     },
   },
   getters: {
-    token(state) {
-      return state.token;
-    },
     userInfo(state) {
       return state.userInfo;
     },

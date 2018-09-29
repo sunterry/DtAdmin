@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import iView from 'iview';
-import { getToken } from '_lib/storage';
+import { getToken, removeToken } from '_lib/storage';
 import { setTitle } from '_lib/tools';
 import { LOGIN_PAGE_NAME } from '@/conf';
-import { routes } from './routes';
-import store from './../store';
+import store from '@/store';
+import routes from './routes';
 
 Vue.use(Router);
 
@@ -21,26 +21,35 @@ router.beforeEach((to, from, next) => {
     setTitle(to.meta.title);
   }
   const token = getToken();
-  if (token) {
-    if (!store.state.router.hasGetAuthRoutes) {
-      store.dispatch('user/gaveUserInfo', { token }).then(({ page }) => {
-        store.dispatch({
-          type: 'router/concatRoutes',
-          page,
-        }).then((res) => {
-          router.addRoutes(res);
-          next({ ...to, replace: true });
-        }).catch(() => {
-          next({ name: 'login' });
-        });
-      });
-    } else {
-      next();
-    }
-  } else if (to.name === LOGIN_PAGE_NAME) {
+  console.log(token);
+  if (!token && to.name !== LOGIN_PAGE_NAME) {
+    console.log(1);
+    next({
+      name: 'login',
+    });
+  } else if (!token && to.name === LOGIN_PAGE_NAME) {
+    console.log(2);
+    next();
+  } else if (token && to.name === LOGIN_PAGE_NAME) {
+    console.log(3);
+    next({
+      name: 'home',
+    });
+  } else if (store.state.user.hasGetUserInfo) {
+    console.log(4);
     next();
   } else {
-    next({ name: 'login' });
+    store.dispatch({
+      type: 'user/gaveUserInfo',
+    }).then((user) => {
+      console.log(user);
+      next();
+    }).catch(() => {
+      removeToken();
+      next({
+        name: 'login',
+      });
+    });
   }
 });
 

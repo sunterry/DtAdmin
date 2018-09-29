@@ -32,7 +32,7 @@
           </i-col>
           <i-col>
             <DtUser
-              src="https://i.loli.net/2017/08/21/599a521472424.jpg"
+              :src="userInfo.avatar"
               size="large"
               icon="ios-person"
               :dropSource="dropSource"
@@ -46,7 +46,6 @@
       <Content>
         {{userInfo}}
         {{userAuth}}
-        {{token}}
         <router-view></router-view>
       </Content>
     </Layout>
@@ -107,7 +106,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userAuth', 'userInfo', 'token']),
+    ...mapGetters(['userAuth', 'userInfo']),
     collaps() {
       return [
         'icon',
