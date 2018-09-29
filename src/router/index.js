@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import iView from 'iview';
 import { getToken } from '_lib/storage';
+import { setTitle } from '_lib/tools';
 import { LOGIN_PAGE_NAME } from '@/conf';
-import routes from './routes';
+import { routes } from './routes';
 import store from './../store';
 
 Vue.use(Router);
@@ -16,22 +17,30 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
+  if (to.meta) {
+    setTitle(to.meta.title);
+  }
   const token = getToken();
-  if (!token && to.name !== LOGIN_PAGE_NAME) {
-    // 未登录并且要跳转的页面不是登录页面
-    next({
-      name: LOGIN_PAGE_NAME,
-    });
-  } else if (!token && to.name === LOGIN_PAGE_NAME) {
-    next();
-  } else if (token && to.name === LOGIN_PAGE_NAME) {
-    next({
-      name: 'home',
-    });
-  } else {
-    store.dispatch('user/getUserInfo', { token }).then(() => {
+  if (token) {
+    if (!store.state.router.hasGetAuthRoutes) {
+      store.dispatch('user/gaveUserInfo', { token }).then(({ page }) => {
+        store.dispatch({
+          type: 'router/concatRoutes',
+          page,
+        }).then((res) => {
+          router.addRoutes(res);
+          next({ ...to, replace: true });
+        }).catch(() => {
+          next({ name: 'login' });
+        });
+      });
+    } else {
       next();
-    });
+    }
+  } else if (to.name === LOGIN_PAGE_NAME) {
+    next();
+  } else {
+    next({ name: 'login' });
   }
 });
 

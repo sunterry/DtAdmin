@@ -11,7 +11,8 @@ class HttpRequest {
   getInsideConfig() {
     const config = {
       baseURL: this.baseUrl,
-      headers: {},
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      responsesType: 'json',
       timeout: this.timeOut,
     };
     return config;

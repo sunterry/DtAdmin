@@ -25,12 +25,12 @@ export default {
     loginFrom,
   },
   methods: {
-    ...mapActions('user', ['sendLogin', 'getUserInfo']),
+    ...mapActions('user', ['sendLogin', 'gaveUserInfo']),
     login(val) {
       const { userName, password } = val;
       const data = Object.assign({}, { user_name: userName, password });
       this.sendLogin(data).then((token) => {
-        this.getUserInfo({ token }).then(() => {
+        this.gaveUserInfo({ token }).then(() => {
           this.$router.push({
             name: 'home',
           });

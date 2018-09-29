@@ -24,14 +24,16 @@ export default {
         });
       });
     },
-    getUserInfo({ commit }, data) {
+    gaveUserInfo({ commit }, data) {
       return new Promise((resolve, reject) => {
         getUserInfo(data).then((res) => {
+          console.log(res);
           if (res.data) {
-            commit(SETUSERINFO, res.data.user);
-            commit(SETUSERAUTH, res.data.auth);
-            commit(SETTOKEN, res.data.user && res.data.user.token);
-            resolve();
+            const resp = res.data;
+            commit(SETUSERINFO, resp.user);
+            commit(SETUSERAUTH, resp.auth);
+            commit(SETTOKEN, resp.user.token);
+            resolve(res.data.auth);
           } else {
             reject(new Error(res.message));
           }
@@ -49,8 +51,8 @@ export default {
       Storage.set('userInfo', JSON.stringify(userInfo));
     },
     [SETUSERAUTH](state, userAuth) {
-      state.userAuth = [...userAuth];
-      Storage.set('userAuth', JSON.stringify([...userAuth]));
+      state.userAuth = Object.assign({}, userAuth);
+      Storage.set('userAuth', JSON.stringify(userAuth));
     },
   },
   getters: {

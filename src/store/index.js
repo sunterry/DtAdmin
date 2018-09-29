@@ -5,6 +5,7 @@ import mutations from './mutations';
 import actions from './actions';
 import getters from './getters';
 import user from './modules/user';
+import router from './modules/router';
 
 Vue.use(Vuex);
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
   getters,
   modules: {
     user,
+    router,
   },
 });
