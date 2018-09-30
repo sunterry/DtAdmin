@@ -55,7 +55,7 @@ export default [
         name: 'multilevelOne',
         meta: {
           access: ['multilevelOne'],
-          title: '一级-1',
+          title: '二级-1',
         },
         component: () => import(/* webpackChunkName: "multilevelOne" */ '../views/multilevel/multilevelOne.vue'),
       },
@@ -64,7 +64,7 @@ export default [
         name: 'multilevelTwo',
         meta: {
           access: ['multilevelTwo'],
-          title: '二级-1',
+          title: '二级-2',
         },
         component: () => import(/* webpackChunkName: "multilevelTwo" */ '../views/multilevel/multilevelTwo.vue'),
       },
