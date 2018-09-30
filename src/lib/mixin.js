@@ -17,5 +17,8 @@ export default {
       }
       return children ? item.children[0].name : item.name;
     },
+    showChildren(item) {
+      return item.children && (item.children.length > 1 || (item.meta && item.meta.always));
+    },
   },
 };

@@ -1,4 +1,5 @@
 import DashBoard from '_c/dt-dashboard';
+import DtParentView from '_c/dt-parent-view';
 
 export default [
   {
@@ -39,6 +40,55 @@ export default [
       access: ['about'],
     },
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
+  {
+    path: '/multilevel',
+    name: 'multilevel',
+    meta: {
+      title: '多级菜单',
+      access: ['multilevel'],
+    },
+    component: DashBoard,
+    children: [
+      {
+        path: 'multilevelOne',
+        name: 'multilevelOne',
+        meta: {
+          access: ['multilevelOne'],
+          title: '一级-1',
+        },
+        component: () => import(/* webpackChunkName: "multilevelOne" */ '../views/multilevel/multilevelOne.vue'),
+      },
+      {
+        path: 'multilevelTwo',
+        name: 'multilevelTwo',
+        meta: {
+          access: ['multilevelTwo'],
+          title: '二级-1',
+        },
+        component: () => import(/* webpackChunkName: "multilevelTwo" */ '../views/multilevel/multilevelTwo.vue'),
+      },
+      {
+        path: 'multilevelThree',
+        name: 'multilevelThree',
+        meta: {
+          access: ['multilevelThree'],
+          title: '二级-3',
+          always: true,
+        },
+        component: DtParentView,
+        children: [
+          {
+            path: 'multilevelThreeNext',
+            name: 'multilevelThreeNext',
+            meta: {
+              title: '三级-1',
+            },
+            component: () => import(/* webpackChunkName: "multilevelThreeNext" */ '../views/multilevel/multilevelThreeNext.vue'),
+          },
+        ],
+      },
+    ],
   },
   {
     path: '/error_401',

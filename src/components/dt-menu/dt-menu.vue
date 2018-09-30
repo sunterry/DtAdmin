@@ -13,7 +13,13 @@
     >
       <template v-for="item in menuList">
         <template v-if="item.children && item.children.length === 1">
+          <dt-menu-item-child
+            v-if="showChildren(item)"
+            :key="`menu-item-${item.name}`"
+            :parent-item="item"
+          />
           <menu-item
+            v-else
             :key="`menu-item-${item.children[0].name}`"
             :name="getNameOrHref(item, true)"
           >
@@ -22,7 +28,13 @@
           </menu-item>
         </template>
         <template v-else>
+          <dt-menu-item-child
+            v-if="showChildren(item)"
+            :key="`menu-item-${item.name}`"
+            :parent-item="item"
+          />
           <menu-item
+            v-else
             :key="`menu-item-${item.name}`"
             :name="getNameOrHref(item)"
           >

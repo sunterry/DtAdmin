@@ -33,7 +33,7 @@ export const getUserInfo = (options) => {
           avatar: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',
           token: res.token,
         },
-        auth: ['about'],
+        auth: ['about', 'multilevel', 'multilevelOne', 'multilevelTwo', 'multilevelThree', 'multilevelThreeNext'],
       },
       message: '获取用户信息成功',
     };
