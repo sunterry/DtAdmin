@@ -25,9 +25,26 @@ export default [
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: '关于我们',
+      access: ['about'],
+    },
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+  },
+  {
+    path: '/error_401',
+    name: 'error_401',
+    meta: {
+      title: '错误页面',
+    },
+    component: () => import(/* webpackChunkName: "error_401" */ '../views/error/error_401.vue'),
+  },
+  {
+    path: '*',
+    name: 'error_404',
+    meta: {
+      title: '未找到该页面',
+    },
+    component: () => import(/* webpackChunkName: "error_404" */'../views/error/error_404.vue'),
   },
 ];

@@ -29,15 +29,11 @@
         <Icon type="ios-stats" />
         统计分析
       </template>
-      <MenuGroup title="使用">
         <menu-item name="3-1">新增和启动</menu-item>
         <menu-item name="3-2">活跃分析</menu-item>
         <menu-item name="3-3">时段分析</menu-item>
-      </MenuGroup>
-      <MenuGroup title="留存">
         <menu-item name="3-4">用户留存</menu-item>
         <menu-item name="3-5">流失用户</menu-item>
-      </MenuGroup>
     </Submenu>
   </Menu>
 </template>

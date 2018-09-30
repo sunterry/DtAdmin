@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import iView from 'iview';
 import { getToken, removeToken } from '_lib/storage';
 import { setTitle } from '_lib/tools';
+import { isPermission } from '_lib/router';
 import { LOGIN_PAGE_NAME } from '@/conf';
 import store from '@/store';
 import routes from './routes';
@@ -14,6 +15,19 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes,
 });
+
+export const jumpTo = (to, access, next) => {
+  console.log(isPermission(to.name, access, routes));
+  if (isPermission(to.name, access, routes)) {
+    next();
+  } else {
+    next({
+      name: 'error_401',
+      replace: true,
+    });
+  }
+};
+
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
@@ -32,13 +46,16 @@ router.beforeEach((to, from, next) => {
       name: 'home',
     });
   } else if (store.state.user.hasGetUserInfo) {
-    next();
+    const { auth } = store.state.user;
+    console.log(auth);
+    jumpTo(to, auth, next);
   } else {
     store.dispatch({
       type: 'user/gaveUserInfo',
     }).then((user) => {
-      console.log(user);
-      next();
+      const { auth } = user;
+      console.log(auth);
+      jumpTo(to, auth, next);
     }).catch(() => {
       removeToken();
       next({
