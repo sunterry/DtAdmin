@@ -17,7 +17,6 @@ const router = new Router({
 });
 
 export const jumpTo = (to, access, next) => {
-  console.log(isPermission(to.name, access, routes));
   if (isPermission(to.name, access, routes)) {
     next();
   } else {
@@ -47,14 +46,10 @@ router.beforeEach((to, from, next) => {
     });
   } else if (store.state.user.hasGetUserInfo) {
     const { auth } = store.state.user;
-    console.log(auth);
     jumpTo(to, auth, next);
   } else {
-    store.dispatch({
-      type: 'user/gaveUserInfo',
-    }).then((user) => {
+    store.dispatch('gaveUserInfo').then((user) => {
       const { auth } = user;
-      console.log(auth);
       jumpTo(to, auth, next);
     }).catch(() => {
       removeToken();

@@ -25,7 +25,7 @@ export default {
     loginFrom,
   },
   methods: {
-    ...mapActions('user', ['sendLogin', 'gaveUserInfo']),
+    ...mapActions(['sendLogin', 'gaveUserInfo']),
     login(val) {
       const { userName, password } = val;
       const data = Object.assign({}, { user_name: userName, password });

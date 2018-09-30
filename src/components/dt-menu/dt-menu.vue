@@ -1,47 +1,52 @@
 <template>
-  <Menu
-    :theme="theme"
-    :width="width"
-    :accordion="accordion"
-    :mode="mode"
-    :active-name="activeName"
-    :open-names="openNames"
-  >
-    <Submenu name="1">
-      <template slot="title">
-        <Icon type="ios-paper" />
-        内容管理
+  <div>
+    <div>
+      <slot></slot>
+    </div>
+    <Menu
+      :theme="theme"
+      :width="width"
+      :accordion="accordion"
+      :mode="mode"
+      :active-name="activeName"
+      :open-names="openNames"
+    >
+      <template v-for="item in menuList">
+        <template v-if="item.children && item.children.length === 1">
+          <menu-item
+            :key="`menu-item-${item.children[0].name}`"
+            :name="getNameOrHref(item, true)"
+          >
+            <dt-icon :icon="getIcon(item.children[0])" :size="14" />
+            <span>{{ getTitle(item.children[0]) }}</span>
+          </menu-item>
+        </template>
+        <template v-else>
+          <menu-item
+            :key="`menu-item-${item.name}`"
+            :name="getNameOrHref(item)"
+          >
+            <dt-icon :icon="getIcon(item)" :size="14"/>
+            <span>{{ getTitle(item) }}</span>
+          </menu-item>
+        </template>
       </template>
-      <menu-item name="1-1">文章管理</menu-item>
-      <menu-item name="1-2">评论管理</menu-item>
-      <menu-item name="1-3">举报管理</menu-item>
-    </Submenu>
-    <Submenu name="2">
-      <template slot="title">
-        <Icon type="ios-people" />
-        用户管理
-      </template>
-      <menu-item name="2-1">新增用户</menu-item>
-      <menu-item name="2-2">活跃用户</menu-item>
-    </Submenu>
-    <Submenu name="3">
-      <template slot="title">
-        <Icon type="ios-stats" />
-        统计分析
-      </template>
-        <menu-item name="3-1">新增和启动</menu-item>
-        <menu-item name="3-2">活跃分析</menu-item>
-        <menu-item name="3-3">时段分析</menu-item>
-        <menu-item name="3-4">用户留存</menu-item>
-        <menu-item name="3-5">流失用户</menu-item>
-    </Submenu>
-  </Menu>
+    </Menu>
+    <div></div>
+  </div>
 </template>
 
 <script>
+import mixin from '_lib/mixin';
+
 export default {
   name: 'dtMenu',
+  mixins: [mixin],
   props: {
+    isCollapsible: {
+      props: Boolean,
+      default: false,
+    },
     width: {
       type: String,
       default: 'auto',
@@ -60,6 +65,10 @@ export default {
     },
     activeName: [String, Number],
     openNames: {
+      type: Array,
+      default: () => [],
+    },
+    menuList: {
       type: Array,
       default: () => [],
     },

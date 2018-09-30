@@ -10,7 +10,11 @@
       :breakpoint="breakpoint"
       :reverse-arrow="reverseArrow"
     >
-      <DtMenu />
+      <DtMenu
+        ref="dtMenu"
+        :isCollapsible="isCollapsible"
+        :menuList="menuList"
+      />
     </Sider>
     <Layout>
       <Header class="dt-header">
@@ -44,8 +48,6 @@
         </Row>
       </Header>
       <Content>
-        {{userInfo}}
-        {{userAuth}}
         <router-view></router-view>
       </Content>
     </Layout>
@@ -53,7 +55,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import { mapGetters } from 'vuex';
 import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
@@ -66,7 +68,6 @@ const width = 230;
 const breakpoint = 'sm'; // xs,sm,md,lg,xl 或 xxl
 const reverseArrow = false;
 
-const { mapGetters } = createNamespacedHelpers('user');
 export default {
   name: 'dtDashboard',
   data() {
@@ -106,7 +107,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userAuth', 'userInfo']),
+    ...mapGetters(['userAuth', 'userInfo', 'menuList']),
     collaps() {
       return [
         'icon',

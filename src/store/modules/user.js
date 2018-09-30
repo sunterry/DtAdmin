@@ -4,7 +4,6 @@ import { setToken, getToken } from '_lib/storage';
 import { SETTOKEN, SETUSERINFO, SETUSERAUTH, HASGETUSERINFO } from './../types';
 
 export default {
-  namespaced: true,
   state: {
     token: getToken(),
     userInfo: {},

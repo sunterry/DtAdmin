@@ -6,6 +6,7 @@ export default [
     name: 'login',
     meta: {
       title: '登录',
+      hideMenu: true,
     },
     component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue'),
   },
@@ -13,11 +14,19 @@ export default [
     path: '/',
     name: '_home',
     redirect: '/home',
+    meta: {
+      title: '首页',
+    },
     component: DashBoard,
     children: [
       {
         path: '/home',
         name: 'home',
+        meta: {
+          icon: 'home',
+          noCache: true,
+          title: '首页',
+        },
         component: () => import(/* webpackChunkName: "home" */ '../views/home/home.vue'),
       },
     ],
@@ -36,6 +45,7 @@ export default [
     name: 'error_401',
     meta: {
       title: '错误页面',
+      hideMenu: true,
     },
     component: () => import(/* webpackChunkName: "error_401" */ '../views/error/error_401.vue'),
   },
@@ -44,6 +54,7 @@ export default [
     name: 'error_404',
     meta: {
       title: '未找到该页面',
+      hideMenu: true,
     },
     component: () => import(/* webpackChunkName: "error_404" */'../views/error/error_404.vue'),
   },

@@ -1,10 +1,18 @@
+import routes from '@/router/routes';
+import { getMenuByRoutes } from '_lib/router';
+
 export default {
-  namespaced: true,
   state: {
+    menuList: [],
   },
   actions: {
   },
   mutations: {
   },
-  getters: {},
+  getters: {
+    menuList(state, getters, rootState) {
+      state.menuList = getMenuByRoutes(routes, rootState.user.userAuth);
+      return state.menuList;
+    },
+  },
 };
