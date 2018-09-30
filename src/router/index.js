@@ -21,22 +21,17 @@ router.beforeEach((to, from, next) => {
     setTitle(to.meta.title);
   }
   const token = getToken();
-  console.log(token);
   if (!token && to.name !== LOGIN_PAGE_NAME) {
-    console.log(1);
     next({
       name: 'login',
     });
   } else if (!token && to.name === LOGIN_PAGE_NAME) {
-    console.log(2);
     next();
   } else if (token && to.name === LOGIN_PAGE_NAME) {
-    console.log(3);
     next({
       name: 'home',
     });
   } else if (store.state.user.hasGetUserInfo) {
-    console.log(4);
     next();
   } else {
     store.dispatch({

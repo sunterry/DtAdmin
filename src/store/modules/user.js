@@ -12,9 +12,10 @@ export default {
     hasGetUserInfo: false,
   },
   actions: {
-    sendLogin({ commit }, data) {
-      return new Promise((resolve, reject) => {
-        login(data).then((res) => {
+    sendLogin({ commit }, params) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await login(params);
           if (res.data) {
             const { token } = res.data;
             commit(SETTOKEN, token);
@@ -22,14 +23,15 @@ export default {
           } else {
             reject(new Error(res.message));
           }
-        }).catch((err) => {
-          reject(new Error(err));
-        });
+        } catch (e) {
+          reject(new Error(e));
+        }
       });
     },
     gaveUserInfo({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        getUserInfo({ token: state.token }).then((res) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await getUserInfo({ token: state.token });
           if (res.data) {
             const resp = res.data;
             commit(SETUSERINFO, resp.user);
@@ -39,9 +41,9 @@ export default {
           } else {
             reject(new Error(res.message));
           }
-        }).catch((err) => {
-          reject(new Error(err));
-        });
+        } catch (e) {
+          reject(new Error(e));
+        }
       });
     },
   },
