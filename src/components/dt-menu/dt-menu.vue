@@ -38,6 +38,7 @@
 
 <script>
 import mixin from '_lib/mixin';
+import DtMenuItemChild from './components/dt-menu-item-child.vue';
 
 export default {
   name: 'dtMenu',
@@ -72,6 +73,9 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  components: {
+    DtMenuItemChild,
   },
 };
 </script>
