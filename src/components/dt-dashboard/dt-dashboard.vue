@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
@@ -116,8 +116,20 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['loginOut']),
     handleChange(name) {
-      console.log(name);
+      switch (name) {
+        case 'logout':
+          this.logout();
+          break;
+        default:
+          break;
+      }
+    },
+    logout() {
+      this.loginOut().then(() => {
+        this.$router.push('login');
+      });
     },
     handleCollapsible() {
       this.isCollapsible = !this.isCollapsible;

@@ -1,7 +1,7 @@
 import Storage from 'best-storage';
 import { login, getUserInfo } from '@/api/user';
-import { setToken, getToken } from '_lib/storage';
-import { SETTOKEN, SETUSERINFO, SETUSERAUTH, HASGETUSERINFO } from './../types';
+import { setToken, getToken, removeToken } from '_lib/storage';
+import { SETTOKEN, SETUSERINFO, SETUSERAUTH, HASGETUSERINFO, LOGINOUT } from './../types';
 
 export default {
   state: {
@@ -45,6 +45,14 @@ export default {
         }
       });
     },
+    loginOut({ commit }) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          commit(LOGINOUT);
+          resolve();
+        }, 32);
+      });
+    },
   },
   mutations: {
     [SETTOKEN](state, token) {
@@ -61,6 +69,13 @@ export default {
     },
     [HASGETUSERINFO](state, status) {
       state.hasGetUserInfo = status;
+    },
+    [LOGINOUT](state) {
+      Storage.remove('userAuth');
+      Storage.remove('userInfo');
+      removeToken();
+      state.userAuth = [];
+      state.userInfo = [];
     },
   },
   getters: {

@@ -33,10 +33,7 @@
           :divided="item.divided"
           :selected="item.selected"
         >
-          <dt-icon
-            :icon="getIcon(item)"
-            :size="14"
-          />
+          <dt-icon :icon="getIcon(item)" :size="14" />
           <span class="dt-drop-select">{{ getTitle(item) }}</span>
         </DropdownItem>
       </DropdownMenu>

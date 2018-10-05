@@ -11,8 +11,10 @@
           type="text"
           placeholder="请输入用户名"
           v-model="loginSource.userName"
+          clearable
+          :size="InputSize"
         >
-          <Icon type="ios-person-outline" slot="prepend"></Icon>
+          <Icon type="ios-contact" :size="size" slot="prepend"></Icon>
         </i-input>
       </FormItem>
       <FormItem prop="password">
@@ -20,14 +22,17 @@
           type="password"
           v-model="loginSource.password"
           placeholder="请输入密码"
+          clearable
+          :size="InputSize"
         >
-          <Icon type="ios-lock-outline" slot="prepend"></Icon>
+          <Icon type="ios-lock" :size="size" slot="prepend"></Icon>
         </i-input>
       </FormItem>
       <FormItem>
         <Button
           type="primary"
           long
+          :size="InputSize"
           @click="handleSubmit('loginForm')"
           :disabled="!loginSource.userName || !loginSource.password"
         >
@@ -39,6 +44,8 @@
 </template>
 
 <script>
+import { oneOf } from '_lib/tools';
+
 export default {
   name: 'dtLoginForm',
   data() {
@@ -69,6 +76,20 @@ export default {
           trigger: 'blur',
         },
       ],
+    },
+    size: {
+      type: Number,
+      default: 14,
+    },
+    clearable: {
+      type: Boolean,
+      default: false,
+    },
+    InputSize: {
+      validator(value) {
+        return oneOf(value, ['small', 'large', 'default']);
+      },
+      default: 'large',
     },
   },
   computed: {
