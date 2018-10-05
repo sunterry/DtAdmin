@@ -14,6 +14,8 @@
         ref="dtMenu"
         :isCollapsible="isCollapsible"
         :menuList="menuList"
+        :active-name="$route.name"
+        @on-select="handleSelect"
       />
     </Sider>
     <Layout>
@@ -42,13 +44,12 @@
               :dropSource="dropSource"
               placement="bottom"
               user-name="Admin"
-              @on-change="handleChange"
             />
           </i-col>
         </Row>
       </Header>
       <Content>
-        <router-view></router-view>
+        <router-view />
       </Content>
     </Layout>
   </Layout>
@@ -60,13 +61,13 @@ import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
 
-const collapsible = true;
-const collapsedWidth = 64;
-const hideTrigger = true;
-const defaultCollapsed = false;
-const width = 230;
+const collapsible = true; // 导航收缩
+const collapsedWidth = 64; // 收缩宽度
+const hideTrigger = true; // 隐藏默认的切换器
+const defaultCollapsed = false; // 默认不收缩
+const width = 230; // 导航宽度
 const breakpoint = 'sm'; // xs,sm,md,lg,xl 或 xxl
-const reverseArrow = false;
+const reverseArrow = false; // 反向图标不启用
 
 export default {
   name: 'dtDashboard',
@@ -117,6 +118,7 @@ export default {
   },
   methods: {
     ...mapActions(['loginOut']),
+    // 用户组件下拉点击
     handleChange(name) {
       switch (name) {
         case 'logout':
@@ -126,16 +128,38 @@ export default {
           break;
       }
     },
+    // 退出
     logout() {
       this.loginOut().then(() => {
         this.$router.push('login');
       });
     },
+    // 导航收缩
     handleCollapsible() {
       this.isCollapsible = !this.isCollapsible;
     },
-  },
-  created() {
+    // 页面跳转
+    handleSelect(route) {
+      let { name, params, query } = {};
+      if (typeof route === 'string') {
+        name = route;
+      } else {
+        /* eslint prefer-destructuring: ["error", {AssignmentExpression: {array: true}}] */
+        name = route.name;
+        params = route.params;
+        query = route.query;
+      }
+      if (name.indexOf('hasHref_') > -1) {
+        window.open(name.split('_')[1]);
+        return false;
+      }
+      this.$router.push({
+        name,
+        params,
+        query,
+      });
+      return false;
+    },
   },
   components: {
     DtBreadCrumb,

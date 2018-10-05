@@ -34,12 +34,23 @@ export default [
   },
   {
     path: '/about',
-    name: 'about',
+    name: '_about',
     meta: {
       title: '关于我们',
       access: ['about'],
     },
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: DashBoard,
+    children: [
+      {
+        path: '/about',
+        name: 'about',
+        meta: {
+          title: '关于我们',
+          access: ['about'],
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/about/about.vue'),
+      },
+    ],
   },
   {
     path: '/multilevel',
@@ -57,7 +68,7 @@ export default [
           access: ['multilevelOne'],
           title: '二级-1',
         },
-        component: () => import(/* webpackChunkName: "multilevelOne" */ '../views/multilevel/multilevelOne.vue'),
+        component: () => import(/* webpackChunkName: "multilevel-1" */'../views/multilevel/multilevelOne.vue'),
       },
       {
         path: 'multilevelTwo',
@@ -66,7 +77,7 @@ export default [
           access: ['multilevelTwo'],
           title: '二级-2',
         },
-        component: () => import(/* webpackChunkName: "multilevelTwo" */ '../views/multilevel/multilevelTwo.vue'),
+        component: () => import(/* webpackChunkName: "multilevel-2" */'../views/multilevel/multilevelTwo.vue'),
       },
       {
         path: 'multilevelThree',
@@ -84,7 +95,7 @@ export default [
             meta: {
               title: '三级-1',
             },
-            component: () => import(/* webpackChunkName: "multilevelThreeNext" */ '../views/multilevel/multilevelThreeNext.vue'),
+            component: () => import(/* webpackChunkName: "multilevel-3-1" */'../views/multilevel/multilevelThreeNext.vue'),
           },
         ],
       },

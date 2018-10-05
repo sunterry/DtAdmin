@@ -10,6 +10,7 @@
       :mode="mode"
       :active-name="activeName"
       :open-names="openNames"
+      @on-select="onSelect"
     >
       <template v-for="item in menuList">
         <template v-if="item.children && item.children.length === 1">
@@ -86,12 +87,13 @@ export default {
       default: () => [],
     },
   },
+  methods: {
+    onSelect(name) {
+      this.$emit('on-select', name);
+    },
+  },
   components: {
     DtMenuItemChild,
   },
 };
 </script>
-
-<style scoped lang="less">
-
-</style>

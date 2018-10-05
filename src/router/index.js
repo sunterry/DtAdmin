@@ -45,8 +45,8 @@ router.beforeEach((to, from, next) => {
       name: 'home',
     });
   } else if (store.state.user.hasGetUserInfo) {
-    const { auth } = store.state.user;
-    jumpTo(to, auth, next);
+    const { userAuth } = store.state.user;
+    jumpTo(to, userAuth, next);
   } else {
     store.dispatch('gaveUserInfo').then((user) => {
       const { auth } = user;

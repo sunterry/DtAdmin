@@ -1,6 +1,6 @@
 <template>
   <div>
-    multilevelThreeNext
+    multilevelThreeNext 3333
   </div>
 </template>
 
@@ -9,7 +9,3 @@ export default {
   name: 'multilevelThreeNext',
 };
 </script>
-
-<style scoped>
-
-</style>

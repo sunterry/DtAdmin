@@ -32,4 +32,7 @@ export const setTitle = (title) => {
  * @returns {boolean}
  * @author Duantong
  */
-export const hasOneOf = (target, arr) => target.some(item => arr.indexOf(item) > -1);
+export const hasOneOf = (target, arr) => {
+  console.log(target.some(item => arr.indexOf(item) > -1));
+  return target.some(item => arr.indexOf(item) > -1);
+};

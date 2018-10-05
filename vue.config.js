@@ -5,7 +5,7 @@ const resolve = dir => path.join(__dirname, dir);
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  baseUrl: '',
+  baseUrl: '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: isDevelopment ? 'error' : false,
