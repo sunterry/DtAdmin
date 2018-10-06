@@ -4,13 +4,15 @@
       <slot></slot>
     </div>
     <Menu
+      ref="menu"
       :theme="theme"
       :width="width"
       :accordion="accordion"
       :mode="mode"
       :active-name="activeName"
-      :open-names="openNames"
+      :open-names="openedNames"
       @on-select="onSelect"
+      @on-open-change="onOpenChange"
     >
       <template v-for="item in menuList">
         <template v-if="item.children && item.children.length === 1">
@@ -51,11 +53,17 @@
 
 <script>
 import mixin from '_lib/mixin';
+import { getUnion } from '_lib/tools';
 import DtMenuItemChild from './components/dt-menu-item-child.vue';
 
 export default {
   name: 'dtMenu',
   mixins: [mixin],
+  data() {
+    return {
+      openedNames: [],
+    };
+  },
   props: {
     isCollapsible: {
       props: Boolean,
@@ -87,10 +95,41 @@ export default {
       default: () => [],
     },
   },
+  watch: {
+    activeName(val) {
+      if (this.accordion) {
+        this.openedNames = this.getOpenedNamesByActiveName(val);
+      } else {
+        this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(val));
+      }
+    },
+    openNames(val) {
+      this.openedNames = val;
+    },
+    openedNames() {
+      this.$nextTick(() => {
+        this.$refs.menu.updateOpened();
+      });
+    },
+  },
   methods: {
     onSelect(name) {
       this.$emit('on-select', name);
     },
+    onOpenChange(value) {
+      this.$emit('on-open-change', value);
+    },
+    getOpenedNamesByActiveName(name) {
+      return this.$route.matched.map(item => item.name).filter(item => item !== name);
+    },
+    updateOpenName(name) {
+      if (name === 'home') this.openedNames = [];
+      else this.openedNames = this.getOpenedNamesByActiveName(name);
+    },
+  },
+  mounted() {
+    /* eslint-disable-next-line */
+    this.openedNames = getUnion(this.openedNames, this.getOpenedNamesByActiveName(name));
   },
   components: {
     DtMenuItemChild,

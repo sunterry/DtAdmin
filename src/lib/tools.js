@@ -32,7 +32,13 @@ export const setTitle = (title) => {
  * @returns {boolean}
  * @author Duantong
  */
-export const hasOneOf = (target, arr) => {
-  console.log(target.some(item => arr.indexOf(item) > -1));
-  return target.some(item => arr.indexOf(item) > -1);
-};
+export const hasOneOf = (target, arr) => target.some(item => arr.indexOf(item) > -1);
+
+/**
+ * @description 数组去重
+ * @param arr1
+ * @param arr2
+ * @returns {...*[]}
+ * @author Duantong
+ */
+export const getUnion = (arr1, arr2) => Array.from(new Set([...arr1, ...arr2]));
