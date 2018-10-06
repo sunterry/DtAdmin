@@ -32,7 +32,7 @@
                 />
               </i-col>
               <i-col >
-                <dt-bread-crumb :dataSource="dataSource"  />
+                <dt-bread-crumb :dataSource="breadCrumbList"  />
               </i-col>
             </Row>
           </i-col>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
@@ -82,20 +82,6 @@ export default {
       breakpoint,
       reverseArrow,
       value2: '',
-      dataSource: [
-        {
-          name: 'home',
-          meta: { title: '首页' },
-          to: 'home',
-          icon: 'home',
-        },
-        {
-          name: 'scenic',
-          meta: { title: '景区' },
-          to: 'scenic',
-          icon: 'rocket',
-        },
-      ],
       dropSource: [
         { type: 'logout', name: '退出登录', icon: 'logout' },
         {
@@ -108,7 +94,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userAuth', 'userInfo', 'menuList']),
+    ...mapGetters(['userAuth', 'userInfo', 'menuList', 'breadCrumbList']),
     collaps() {
       return [
         'icon',
@@ -116,8 +102,15 @@ export default {
       ];
     },
   },
+  watch: {
+    $route(newRoute) {
+      this.setBreadCrumb(newRoute);
+      this.$refs.dtMenu.updateOpenName(newRoute.name);
+    },
+  },
   methods: {
     ...mapActions(['loginOut']),
+    ...mapMutations(['setBreadCrumb']),
     // 用户组件下拉点击
     handleChange(name) {
       switch (name) {
@@ -160,6 +153,9 @@ export default {
       });
       return false;
     },
+  },
+  mounted() {
+    this.setBreadCrumb(this.$route);
   },
   components: {
     DtBreadCrumb,
