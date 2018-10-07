@@ -44,11 +44,13 @@
               :dropSource="dropSource"
               placement="bottom"
               user-name="Admin"
+              @on-change="handleChange"
             />
           </i-col>
         </Row>
       </Header>
       <Content>
+        <!--<dt-scroll-tab />-->
         <router-view />
       </Content>
     </Layout>
@@ -60,6 +62,8 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
+import DtScrollTab from '_c/dt-scrollTab';
+// import { getNewTagList } from '_lib/utils';
 
 const collapsible = true; // 导航收缩
 const collapsedWidth = 64; // 收缩宽度
@@ -94,7 +98,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['userAuth', 'userInfo', 'menuList', 'breadCrumbList']),
+    ...mapGetters(['userAuth', 'userInfo', 'menuList', 'breadCrumbList', 'homeRoute', 'tagNavList']),
     collaps() {
       return [
         'icon',
@@ -104,13 +108,23 @@ export default {
   },
   watch: {
     $route(newRoute) {
+      // const {
+      //   name, query, params, meta,
+      // } = newRoute;
+      // this.addTag({
+      //   route: {
+      //     name, query, params, meta,
+      //   },
+      //   type: 'push',
+      // });
       this.setBreadCrumb(newRoute);
+      // this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
       this.$refs.dtMenu.updateOpenName(newRoute.name);
     },
   },
   methods: {
     ...mapActions(['loginOut']),
-    ...mapMutations(['setBreadCrumb']),
+    ...mapMutations(['setBreadCrumb', 'addTag', 'setTagNavList']),
     // 用户组件下拉点击
     handleChange(name) {
       switch (name) {
@@ -155,12 +169,17 @@ export default {
     },
   },
   mounted() {
+    this.setTagNavList();
+    this.addTag({
+      route: this.homeRoute,
+    });
     this.setBreadCrumb(this.$route);
   },
   components: {
     DtBreadCrumb,
     DtUser,
     DtMenu,
+    DtScrollTab,
   },
 };
 </script>
@@ -168,7 +187,7 @@ export default {
 <style lang="less" scoped>
   .dt-header {
     background: #fff;
-    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    border-bottom: 1px solid #f8f8f9;
     padding: 0 32px;
     .icon {
       cursor: pointer;

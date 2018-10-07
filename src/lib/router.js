@@ -1,4 +1,5 @@
 import { hasOneOf } from '_lib/tools';
+import { objEqual } from '_lib/utils';
 
 /**
  * @description 判断当前路由是否有权限访问
@@ -87,7 +88,7 @@ export const getMenuByRoutes = (routes, rules) => {
   return res;
 };
 /**
- * @description 面包屑导航
+ * @description 面包屑导航，过滤路由信息
  * @param route
  * @param homeRoute
  * @returns {*[]}
@@ -115,6 +116,12 @@ export const getBreadCrumbList = (route, homeRoute) => {
   return [home, ...res];
 };
 
+/**
+ * @description 获取首页路由信息
+ * @param routers
+ * @return { homeRoute }
+ * @author Duantong
+ */
 export const getHomeRoute = (routers) => {
   let i = -1;
   const len = routers.length;
@@ -132,4 +139,52 @@ export const getHomeRoute = (routers) => {
     }
   }
   return homeRoute;
+};
+
+/**
+ * @description 判断路由是动态路由还是静态路由，并把meta信息重新赋值给新的路由变量
+ * @param route
+ * @returns {{}}
+ * @author Duantong
+ */
+export const getRouteTitleHandled = (route) => {
+  const router = { ...route };
+  const meta = { ...route.meta };
+  if (meta.title && typeof meta.title === 'function') {
+    meta.title = meta.title(router);
+  }
+  router.meta = meta;
+  return router;
+};
+
+/**
+ * @description 根据name/params/query判断两个路由对象是否相等
+ * @param {*} route1 路由对象
+ * @param {*} route2 路由对象
+ */
+export const routeEqual = (route1, route2) => {
+  const params1 = route1.params || {};
+  const params2 = route2.params || {};
+  const query1 = route1.query || {};
+  const query2 = route2.query || {};
+  return (route1.name === route2.name) && objEqual(params1, params2) && objEqual(query1, query2);
+};
+
+/**
+ * @description 查看路由对象中是否包含某一个选中的路由
+ * @param navTaglist
+ * @param routeItem
+ * @returns {boolean}
+ * @author Duantong
+ */
+export const routeHasExist = (tagNavlist, routeItem) => {
+  console.log(tagNavlist);
+  const len = tagNavlist.length;
+  let res = false;
+  routeHasExist(len, (index) => {
+    if (routeEqual(tagNavlist[index], routeItem)) {
+      res = true;
+    }
+  });
+  return res;
 };

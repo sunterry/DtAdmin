@@ -17,6 +17,7 @@ export default [
     redirect: '/home',
     meta: {
       title: '首页',
+      icon: 'home',
     },
     component: DashBoard,
     children: [
@@ -38,6 +39,7 @@ export default [
     meta: {
       title: '关于我们',
       access: ['about'],
+      icon: 'meh',
     },
     component: DashBoard,
     children: [
@@ -47,6 +49,7 @@ export default [
         meta: {
           title: '关于我们',
           access: ['about'],
+          icon: 'meh',
         },
         component: () => import(/* webpackChunkName: "about" */ '../views/about/about.vue'),
       },
@@ -58,6 +61,7 @@ export default [
     meta: {
       title: '多级菜单',
       access: ['multilevel'],
+      icon: 'earth',
     },
     component: DashBoard,
     children: [

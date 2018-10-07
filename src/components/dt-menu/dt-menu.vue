@@ -4,6 +4,7 @@
       <slot></slot>
     </div>
     <Menu
+      v-show="!isCollapsible"
       ref="menu"
       :theme="theme"
       :width="width"
@@ -47,7 +48,6 @@
         </template>
       </template>
     </Menu>
-    <div></div>
   </div>
 </template>
 
@@ -136,3 +136,16 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+  .dt-drop-down{
+    .ivu-dropdown {
+      display: block;
+      text-align: center;
+      line-height: 42px;
+      &:hover {
+        background: red;
+      }
+    }
+  }
+</style>
