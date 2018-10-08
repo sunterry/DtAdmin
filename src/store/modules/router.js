@@ -7,9 +7,9 @@ import {
   routeHasExist,
 } from '_lib/router';
 import {
-  setTagNavListInLocalstorage,
-  getTagNavListFromLocalstorage,
-} from '_lib/utils';
+  setTagNavListInSessionstorage,
+  getTagNavListFromSessionstorage,
+} from '_lib/storage';
 
 export default {
   state: {
@@ -26,6 +26,7 @@ export default {
     },
     addTag(state, { route, type = 'unshift' }) {
       const router = getRouteTitleHandled(route);
+      routeHasExist(state.tagNavList, router);
       if (!routeHasExist(state.tagNavList, router)) {
         if (type === 'push') {
           state.tagNavList.push(router);
@@ -35,15 +36,15 @@ export default {
         } else {
           state.tagNavList.splice(1, 0, router);
         }
-        setTagNavListInLocalstorage([...state.tagNavList]);
+        setTagNavListInSessionstorage([...state.tagNavList]);
       }
     },
     setTagNavList(state, list) {
       if (list) {
         state.tagNavList = [...list];
-        setTagNavListInLocalstorage([...list]);
+        setTagNavListInSessionstorage([...list]);
       }
-      state.tagNavList = getTagNavListFromLocalstorage();
+      state.tagNavList = getTagNavListFromSessionstorage();
     },
   },
   getters: {

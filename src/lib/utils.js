@@ -1,6 +1,3 @@
-import storage from 'best-storage';
-
-
 /**
  * @description 回调函数的执行次数
  * @param {Number} times 回调函数需要执行的次数
@@ -15,7 +12,6 @@ export const doCustomTimes = (times, callback) => {
   }
 };
 
-
 /**
  * @description 判断两个对象是否相等，这两个对象的值只能是数字或字符串
  * @param {*} obj1 对象
@@ -29,24 +25,6 @@ export const objEqual = (obj1, obj2) => {
   else if (keysArr1.length === 0 && keysArr2.length === 0) return true;
   /* eslint-disable-next-line */
   else return !keysArr1.some(key => obj1[key] !== obj2[key]);
-};
-
-/**
- * @description 本地存储和获取标签导航列表
- * @author Duantong
- */
-export const setTagNavListInLocalstorage = (list) => {
-  console.log(list);
-  storage.set('tagNavList', JSON.stringify(list));
-};
-
-/**
- * @returns {Array} 其中的每个元素只包含路由原信息中的name, path, meta三项
- * @author Duantong
- */
-export const getTagNavListFromLocalstorage = () => {
-  const list = storage.get('tagNavList');
-  return list ? JSON.parse(list) : [];
 };
 
 /**

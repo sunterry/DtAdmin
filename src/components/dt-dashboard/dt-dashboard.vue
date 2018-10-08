@@ -169,7 +169,6 @@ export default {
     },
   },
   mounted() {
-    this.setTagNavList();
     this.addTag({
       route: this.homeRoute,
     });

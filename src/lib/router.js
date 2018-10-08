@@ -1,5 +1,5 @@
 import { hasOneOf } from '_lib/tools';
-import { objEqual } from '_lib/utils';
+import { objEqual, doCustomTimes } from '_lib/utils';
 
 /**
  * @description 判断当前路由是否有权限访问
@@ -96,7 +96,6 @@ export const getMenuByRoutes = (routes, rules) => {
  */
 export const getBreadCrumbList = (route, homeRoute) => {
   const routeMetched = route.matched;
-  console.log(routeMetched);
   const result = routeMetched.filter(item => (item.meta === undefined || !item.meta.hide))
     .map((item) => {
       const meta = { ...item.meta };
@@ -112,7 +111,6 @@ export const getBreadCrumbList = (route, homeRoute) => {
     });
   const res = result.filter(item => !item.meta.hideMenu).filter(item => item.name !== 'home').filter(item => item.name !== '_home');
   const home = Object.assign({}, homeRoute, { to: homeRoute.path });
-  console.log([home, ...res]);
   return [home, ...res];
 };
 
@@ -172,17 +170,16 @@ export const routeEqual = (route1, route2) => {
 
 /**
  * @description 查看路由对象中是否包含某一个选中的路由
- * @param navTaglist
+ * @param navTagList
  * @param routeItem
  * @returns {boolean}
  * @author Duantong
  */
-export const routeHasExist = (tagNavlist, routeItem) => {
-  console.log(tagNavlist);
-  const len = tagNavlist.length;
+export const routeHasExist = (tag, routeItem) => {
+  const len = tag.length;
   let res = false;
-  routeHasExist(len, (index) => {
-    if (routeEqual(tagNavlist[index], routeItem)) {
+  doCustomTimes(len, (index) => {
+    if (routeEqual(tag[index], routeItem)) {
       res = true;
     }
   });
