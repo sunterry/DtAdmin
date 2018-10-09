@@ -1,6 +1,5 @@
-import Storage from 'best-storage';
 import { login, getUserInfo } from '@/api/user';
-import { setToken, getToken, removeToken } from '_lib/storage';
+import { setToken, getToken, removeToken, storageSetInfo, storageRemoveInfo } from '_lib/storage';
 import { SETTOKEN, SETUSERINFO, SETUSERAUTH, HASGETUSERINFO, LOGINOUT } from './../types';
 
 export default {
@@ -61,18 +60,18 @@ export default {
     },
     [SETUSERINFO](state, userInfo) {
       state.userInfo = Object.assign({}, userInfo);
-      Storage.set('userInfo', JSON.stringify(userInfo));
+      storageSetInfo('userInfo', userInfo);
     },
     [SETUSERAUTH](state, userAuth) {
       state.userAuth = [...userAuth];
-      Storage.set('userAuth', JSON.stringify([...userAuth]));
+      storageSetInfo('userAuth', [...userAuth]);
     },
     [HASGETUSERINFO](state, status) {
       state.hasGetUserInfo = status;
     },
     [LOGINOUT](state) {
-      Storage.remove('userAuth');
-      Storage.remove('userInfo');
+      storageRemoveInfo('userAuth');
+      storageRemoveInfo('userInfo');
       removeToken();
       state.userAuth = [];
       state.userInfo = [];

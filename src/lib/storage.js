@@ -20,16 +20,41 @@ export const removeToken = () => {
   Cookies.remove(TOKEN_KEY);
 };
 
+/**
+ * @description 获取本地存储信息
+ * @param info
+ * @returns {*}
+ * @author DuanTong
+ */
 export const storageGetInfo = info => storage.get(info);
 
-// export const storageSetInfo = (info, data) = storage.set(info, data);
+/**
+ * @descriptio 设置本地存储信息
+ * @param info
+ * @param data
+ * @author Duantong
+ */
+export const storageSetInfo = (info, data) => {
+  if (Object.prototype.toString.call(data) === '[object Array]' || Object.prototype.toString.call(data) === '[object Object]') {
+    storage.set(info, JSON.stringify(data));
+  } else {
+    storage.set(info, data);
+  }
+};
+
+/**
+ * @description 删除本地存储信息
+ * @param info
+ * @returns {*}
+ */
+export const storageRemoveInfo = info => storage.remove(info);
 
 /**
  * @description 本地存储和获取标签导航列表
  * @author Duantong
  */
 export const setTagNavListInSessionstorage = (list) => {
-  storage.session.set('tagNavList', list);
+  storage.session.set('tagNavList', JSON.stringify(list));
 };
 
 /**
@@ -37,7 +62,7 @@ export const setTagNavListInSessionstorage = (list) => {
  * @author Duantong
  */
 export const getTagNavListFromSessionstorage = () => {
-  const list = storage.session.get('tagNavList');
+  const list = JSON.parse(storage.session.get('tagNavList'));
   if (list && list.length > 0) {
     return list;
   }
