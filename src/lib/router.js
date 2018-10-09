@@ -109,7 +109,7 @@ export const getBreadCrumbList = (route, homeRoute) => {
       };
       return obj;
     });
-  const res = result.filter(item => !item.meta.hideMenu).filter(item => item.name !== 'home').filter(item => item.name !== '_home');
+  const res = result.filter(item => !item.meta.hideMenu);
   const home = Object.assign({}, homeRoute, { to: homeRoute.path });
   return [home, ...res];
 };
@@ -136,6 +136,7 @@ export const getHomeRoute = (routers) => {
       homeRoute = item;
     }
   }
+  console.log(homeRoute);
   return homeRoute;
 };
 

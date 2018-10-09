@@ -18,6 +18,7 @@ export default [
     meta: {
       title: '首页',
       icon: 'home',
+      hide: true,
     },
     component: DashBoard,
     children: [
@@ -28,6 +29,7 @@ export default [
           icon: 'home',
           noCache: true,
           title: '首页',
+          hide: true,
         },
         component: () => import(/* webpackChunkName: "home" */ '../views/home/home.vue'),
       },
@@ -40,6 +42,7 @@ export default [
       title: '关于我们',
       access: ['about'],
       icon: 'meh',
+      hide: true,
     },
     component: DashBoard,
     children: [
@@ -102,6 +105,24 @@ export default [
             component: () => import(/* webpackChunkName: "multilevel-3-1" */'../views/multilevel/multilevelThreeNext.vue'),
           },
         ],
+      },
+    ],
+  },
+  {
+    path: '/tools',
+    name: '_tools',
+    meta: {
+      hide: true,
+    },
+    component: DashBoard,
+    children: [
+      {
+        path: '/tools',
+        name: 'tools',
+        meta: {
+          title: '工具方法',
+        },
+        component: () => import('@/views/tools/tools.vue'),
       },
     ],
   },
