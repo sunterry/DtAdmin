@@ -26,18 +26,3 @@ export const objEqual = (obj1, obj2) => {
   /* eslint-disable-next-line */
   else return !keysArr1.some(key => obj1[key] !== obj2[key]);
 };
-
-/**
- * @description 判断现有的tag中的路由列表是否已经存在，如果该newRoute已经存在则不再添加
- * @param {*} list 现有标签导航列表
- * @param {*} newRoute 新添加的路由原信息对象
- * @return [newList]
- * @author Duantong
- */
-export const getNewTagList = (list, newRoute) => {
-  const { name, path, meta } = newRoute;
-  const newList = [...list];
-  if (newList.findIndex(item => item.name === name) >= 0) return newList;
-  newList.push({ name, path, meta });
-  return newList;
-};

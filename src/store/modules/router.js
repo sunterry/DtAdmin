@@ -24,27 +24,24 @@ export default {
     setBreadCrumb(state, route) {
       state.breadCrumbList = getBreadCrumbList(route, state.homeRoute);
     },
-    addTag(state, { route, type = 'unshift' }) {
-      const router = getRouteTitleHandled(route);
-      routeHasExist(state.tagNavList, router);
-      if (!routeHasExist(state.tagNavList, router)) {
-        if (type === 'push') {
-          state.tagNavList.push(router);
-        }
-        if (router.name === 'home') {
-          state.tagNavList.unshift(router);
-        } else {
-          state.tagNavList.splice(1, 0, router);
-        }
-        setTagNavListInSessionstorage([...state.tagNavList]);
-      }
-    },
     setTagNavList(state, list) {
       if (list) {
         state.tagNavList = [...list];
         setTagNavListInSessionstorage([...list]);
+      } else state.tagNavList = getTagNavListFromSessionstorage();
+    },
+    addTag(state, { route, type = 'unshift' }) {
+      const router = getRouteTitleHandled(route);
+      if (!routeHasExist(state.tagNavList, router)) {
+        /* eslint-disable */
+        if (type === 'push') {
+          state.tagNavList.push(router);
+        } else {
+          if (router.name === 'home') state.tagNavList.unshift(router);
+          else state.tagNavList.splice(1, 0, router);
+        }
+        setTagNavListInSessionstorage([...state.tagNavList]);
       }
-      state.tagNavList = getTagNavListFromSessionstorage();
     },
   },
   getters: {

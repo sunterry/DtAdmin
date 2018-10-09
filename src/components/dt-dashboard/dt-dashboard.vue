@@ -50,7 +50,12 @@
         </Row>
       </Header>
       <Content>
-        <!--<dt-scroll-tab />-->
+        <dt-scroll-tab
+          :tag-list="tagNavList"
+          :route-value="$route"
+          @on-select="handleSelect"
+          @on-close="closeTag"
+        />
         <router-view />
       </Content>
     </Layout>
@@ -58,12 +63,12 @@
 </template>
 
 <script>
+import { getNewTagList, routeEqual, getNextRoute } from '_lib/router';
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import DtBreadCrumb from '_c/dt-breadCrumb';
 import DtUser from '_c/dt-user';
 import DtMenu from '_c/dt-menu';
 import DtScrollTab from '_c/dt-scrollTab';
-// import { getNewTagList } from '_lib/utils';
 
 const collapsible = true; // 导航收缩
 const collapsedWidth = 64; // 收缩宽度
@@ -108,17 +113,17 @@ export default {
   },
   watch: {
     $route(newRoute) {
-      // const {
-      //   name, query, params, meta,
-      // } = newRoute;
-      // this.addTag({
-      //   route: {
-      //     name, query, params, meta,
-      //   },
-      //   type: 'push',
-      // });
+      const {
+        name, query, params, meta,
+      } = newRoute;
+      this.addTag({
+        route: {
+          name, query, params, meta,
+        },
+        type: 'push',
+      });
       this.setBreadCrumb(newRoute);
-      // this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
+      this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
       this.$refs.dtMenu.updateOpenName(newRoute.name);
     },
   },
@@ -167,8 +172,27 @@ export default {
       });
       return false;
     },
+    // 关闭
+    closeTag(res, type, route) {
+      let openName = '';
+      if (type === 'all') {
+        this.onSelect('home');
+        openName = 'home';
+      } else if (routeEqual(this.$route, route)) {
+        if (type === 'others') {
+          openName = route.name;
+        } else {
+          const nextRoute = getNextRoute(this.tagNavList, route);
+          this.$router.push(nextRoute);
+          openName = nextRoute.name;
+        }
+      }
+      this.setTagNavList(res);
+      this.$refs.dtMenu.updateOpenName(openName);
+    },
   },
   mounted() {
+    this.setTagNavList();
     this.addTag({
       route: this.homeRoute,
     });

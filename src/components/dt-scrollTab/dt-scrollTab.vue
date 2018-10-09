@@ -20,7 +20,7 @@
         type="dot"
         :name="item.name"
         :closable="item.name !== 'home'"
-        :color="isCurrentTag(item) ? 'warning' : 'default'"
+        :color="isCurrentTag(item) ? 'primary' : 'default'"
         @click.native="tagSelect(item)"
         @on-close="closeTag(item)"
       >
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { routeEqual } from '_lib/router';
+
 export default {
   name: 'dt-scrollTab',
   data() {
@@ -101,6 +103,7 @@ export default {
         this.tagBodyLeft = 0;
       }
     },
+    // 点击标签滚动
     moveToView(tag) {
       const outerWidth = this.$refs.scrollOuter.offsetWidth;
       const bodyWidth = this.$refs.scrollBody.offsetWidth;
@@ -139,36 +142,33 @@ export default {
         this.getTagElementByName(name);
       }, 200);
     },
+    // 选择标签跳转
     tagSelect(item) {
-      this.$emit('input', item);
+      this.$emit('on-select', item);
     },
     closeTag(current) {
-      console.log(current);
-      // let res = filter(this.tagList, item => !routeEqual(current, item))
-      // this.$emit('on-close', res, undefined, current)
+      const res = this.tagList.filter(item => !routeEqual(current, item));
+      this.$emit('on-close', res, undefined, current);
     },
     showTitle(item) {
       return item.meta && item.meta.title;
     },
     isCurrentTag(item) {
-      console.log(item);
-      // return routeEqual(this.routeValue, item);
+      return routeEqual(this.routeValue, item);
     },
-  },
-  handleTagsOption(type) {
-    console.log(type);
-    // if (type === 'close-all') {
-    //   // 关闭所有，除了home
-    //   const res = this.tagList.filter(item => item.name === 'home')
-    //   this.$emit('on-close', res, 'all')
-    // } else {
-    //   const res = this.tagList.filter(
-    // item => routeEqual(this.currentRouteObj, item) || item.name === 'home')
-    //   this.$emit('on-close', res, 'others', this.currentRouteObj)
-    //   setTimeout(() => {
-    //     this.getTagElementByName(this.currentRouteObj.name)
-    //   }, 100)
-    // }
+    handleTagsOption(type) {
+      if (type === 'close-all') {
+        // 关闭所有，除了home
+        const res = this.tagList.filter(item => item.name === 'home');
+        this.$emit('on-close', res, 'all');
+      } else {
+        const res = this.tagList.filter(item => routeEqual(this.currentRouteObj, item) || item.name === 'home');
+        this.$emit('on-close', res, 'others', this.currentRouteObj);
+        setTimeout(() => {
+          this.getTagElementByName(this.currentRouteObj.name);
+        }, 100);
+      }
+    },
   },
 };
 </script>

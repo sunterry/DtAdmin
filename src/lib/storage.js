@@ -28,15 +28,18 @@ export const storageGetInfo = info => storage.get(info);
  * @description 本地存储和获取标签导航列表
  * @author Duantong
  */
-export const setTagNavListInLocalstorage = (list) => {
-  storage.session.set('tagNavList', JSON.stringify(list));
+export const setTagNavListInSessionstorage = (list) => {
+  storage.session.set('tagNavList', list);
 };
 
 /**
  * @returns {Array} 其中的每个元素只包含路由原信息中的name, path, meta三项
  * @author Duantong
  */
-export const getTagNavListFromLocalstorage = () => {
+export const getTagNavListFromSessionstorage = () => {
   const list = storage.session.get('tagNavList');
-  return list ? JSON.parse(list) : [];
+  if (list && list.length > 0) {
+    return list;
+  }
+  return [];
 };

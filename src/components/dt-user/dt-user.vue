@@ -169,7 +169,6 @@ export default {
     }
     span {
       font-size: 14px;
-      margin: 0 5px;
     }
   }
 </style>
