@@ -154,7 +154,7 @@ export default {
       return item.meta && item.meta.title;
     },
     isCurrentTag(item) {
-      return routeEqual(this.routeValue, item);
+      return routeEqual(this.currentRouteObj, item);
     },
     handleTagsOption(type) {
       if (type === 'close-all') {
@@ -190,7 +190,7 @@ export default {
       position: relative;
       flex: 1;
       overflow: hidden;
-      background: #fff;
+      box-shadow: 0px 0 3px 2px rgba(100,100,100,.1) inset;
       &--body{
         height: 100%;
         display: inline-block;

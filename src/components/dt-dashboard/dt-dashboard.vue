@@ -52,11 +52,12 @@
       <Content>
         <dt-scroll-tab
           :tag-list="tagNavList"
-          :route-value="$route"
+          :routeValue="$route"
           @on-select="handleSelect"
           @on-close="closeTag"
         />
         <div class="dt-content">
+          {{ typeof $route.query.id }}
           <keep-alive :include="cacheList">
             <router-view />
           </keep-alive>
@@ -132,8 +133,6 @@ export default {
         type: 'push',
       });
       this.setBreadCrumb(newRoute);
-      console.log(this.tagNavList);
-      console.log(newRoute);
       this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
       this.$refs.dtMenu.updateOpenName(newRoute.name);
     },
