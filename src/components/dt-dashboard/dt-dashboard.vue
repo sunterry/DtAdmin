@@ -221,7 +221,6 @@ export default {
   .dt-header {
     background: #fff;
     border-bottom: 1px solid #f8f8f9;
-    padding: 0 32px;
     .icon {
       cursor: pointer;
       margin-right: 20px;
