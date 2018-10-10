@@ -57,7 +57,6 @@
           @on-close="closeTag"
         />
         <div class="dt-content">
-          {{ typeof $route.query.id }}
           <keep-alive :include="cacheList">
             <router-view />
           </keep-alive>
