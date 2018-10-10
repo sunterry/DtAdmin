@@ -57,7 +57,9 @@
           @on-close="closeTag"
         />
         <div class="dt-content">
-          <router-view />
+          <keep-alive :include="cacheList">
+            <router-view />
+          </keep-alive>
         </div>
       </Content>
     </Layout>
@@ -130,6 +132,8 @@ export default {
         type: 'push',
       });
       this.setBreadCrumb(newRoute);
+      console.log(this.tagNavList);
+      console.log(newRoute);
       this.setTagNavList(getNewTagList(this.tagNavList, newRoute));
       this.$refs.dtMenu.updateOpenName(newRoute.name);
     },

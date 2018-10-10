@@ -62,9 +62,6 @@ export const setTagNavListInSessionstorage = (list) => {
  * @author Duantong
  */
 export const getTagNavListFromSessionstorage = () => {
-  const list = JSON.parse(storage.session.get('tagNavList'));
-  if (list && list.length > 0) {
-    return list;
-  }
-  return [];
+  const list = storage.session.get('tagNavList');
+  return list ? JSON.parse(list) : [];
 };
