@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     handlescroll(e) {
-      const type = e.type; /* eslint-disable-line */
+      const { type } = e;
       let delta = 0;
       if (type === 'DOMMouseScroll' || type === 'mousewheel') {
         delta = (e.wheelDelta) ? e.wheelDelta : -(e.detail || 0) * 40;
@@ -177,8 +177,8 @@ export default {
   @import "./../../assets/css/mixin";
   .dt-scroll-tab{
     display: flex;
+    height: 36px;
     .no-select;
-    .size;
     &__common{
       width: 36px;
       height: 100%;

@@ -99,13 +99,11 @@ export const getBreadCrumbList = (route, homeRoute) => {
   const result = routeMetched.filter(item => (item.meta === undefined || !item.meta.hide))
     .map((item) => {
       const meta = { ...item.meta };
-      if (meta.title && typeof meta.title === 'function') {
-        meta.title = meta.title(route);
-      }
+      if (meta.title && typeof meta.title === 'function') meta.title = meta.title(route);
       const obj = {
         icon: (item.meta && item.meta.icon) || '',
         name: item.name,
-        meta: item.meta,
+        meta,
       };
       return obj;
     });
@@ -124,7 +122,7 @@ export const getHomeRoute = (routers) => {
   let i = -1;
   const len = routers.length;
   let homeRoute = {};
-  while (++i < len) { /* eslint-disable-line */
+  while (++i < len) {
     const item = routers[i];
     if (item.children && item.children.length) {
       const res = getHomeRoute(item.children);

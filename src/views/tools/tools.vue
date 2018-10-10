@@ -54,17 +54,12 @@ export default {
         },
         meta: {
           title: `参数-${id}`,
-        }
+        },
       };
       this.$router.push(route);
     },
-    handleCloseTag() {
-      this.closeTag({
-        name: 'tools_methods_page',
-      });
-    }
-  }
-}
+  },
+};
 </script>
 
 <style>

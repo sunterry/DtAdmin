@@ -56,7 +56,9 @@
           @on-select="handleSelect"
           @on-close="closeTag"
         />
-        <router-view />
+        <div class="dt-content">
+          <router-view />
+        </div>
       </Content>
     </Layout>
   </Layout>
@@ -109,6 +111,11 @@ export default {
         'icon',
         this.isCollapsible ? 'trigger-rotate' : '',
       ];
+    },
+    cacheList() {
+      return this.tagNavList.length ?
+        this.tagNavList.filter(item => !(item.meta && item.meta.notCache))
+          .map(item => item.name) : [];
     },
   },
   watch: {
@@ -176,7 +183,7 @@ export default {
     closeTag(res, type, route) {
       let openName = '';
       if (type === 'all') {
-        this.onSelect('home');
+        this.handleSelect('home');
         openName = 'home';
       } else if (routeEqual(this.$route, route)) {
         if (type === 'others') {
@@ -222,5 +229,13 @@ export default {
         transition: transform .3s ease;
       }
     }
+  }
+  .ivu-layout-content {
+    height: 100%;
+  }
+  .dt-content {
+    width: 100%;
+    min-height: calc(~"100% - 41px");
+    margin-top: 5px;
   }
 </style>

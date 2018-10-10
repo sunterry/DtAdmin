@@ -127,6 +127,35 @@ export default [
     ],
   },
   {
+    path: '/argu',
+    name: 'argu',
+    meta: {
+      hideMenu: true,
+      notCache: true,
+    },
+    component: DashBoard,
+    children: [
+      {
+        path: 'params/:id',
+        name: 'params',
+        meta: {
+          title: route => `动态路由-${route.params.id}`,
+          notCache: true,
+        },
+        component: () => import('../views/argu-page/params.vue'),
+      },
+      {
+        path: 'query',
+        name: 'query',
+        meta: {
+          title: route => `带参路由-${route.query.id}`,
+          notCache: true,
+        },
+        component: () => import('../views/argu-page/query.vue'),
+      },
+    ],
+  },
+  {
     path: '/error_401',
     name: 'error_401',
     meta: {

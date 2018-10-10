@@ -6,7 +6,6 @@
  */
 export const doCustomTimes = (times, callback) => {
   let i = -1;
-  /* eslint-disable-next-line */
   while (++i < times) {
     callback(i);
   }

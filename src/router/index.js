@@ -30,9 +30,12 @@ export const jumpTo = (to, access, next) => {
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
-  if (to.meta) {
+  if (to.meta && to.meta.title && typeof to.meta.title === 'function') {
+    const { title } = to.meta;
+    to.meta.title = title(to);
     setTitle(to.meta.title);
   }
+  setTitle(to.meta.title);
   const token = getToken();
   if (!token && to.name !== LOGIN_PAGE_NAME) {
     next({

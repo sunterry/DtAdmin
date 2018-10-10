@@ -6,8 +6,7 @@
  * @author Duantong
  */
 export function oneOf(value, validList) {
-  /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
-  for (let i = 0; i < validList.length; i++) {
+  for (let i = 0; i < validList.length; i += 1) {
     if (value === validList[i]) {
       return true;
     }
@@ -22,9 +21,9 @@ export function oneOf(value, validList) {
  * @author Duantong
  */
 export const setTitle = (title) => {
-  document.title = title || 'DtAdmin后台管理系统';
+  const docTitle = title || 'DtAdmin后台管理系统';
+  document.title = docTitle;
 };
-
 /**
  * @description 判断要查询的数组是否至少有一个包含在目标数组中
  * @param target 目标数组
