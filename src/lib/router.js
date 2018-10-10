@@ -134,7 +134,6 @@ export const getHomeRoute = (routers) => {
       homeRoute = item;
     }
   }
-  console.log(homeRoute);
   return homeRoute;
 };
 
